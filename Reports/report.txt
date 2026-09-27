@@ -1,0 +1,13 @@
+
+HYBRID DATA ANALYTICS & AI REPORTING ENGINE
+--------------------------------------------
+
+Total Sales: 464000
+Total Profit: 72700
+Average Sales: 38666.67
+Top Product: Laptop
+
+AI Insights:
+- West region has the highest sales.
+- Laptop is the top-selling product.
+- Total sales and profit indicate positive business performance.
