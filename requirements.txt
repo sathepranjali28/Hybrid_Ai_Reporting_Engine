@@ -6,3 +6,4 @@ streamlit
 plotly
 openpyxl
 scikit-learn
+python-docx
