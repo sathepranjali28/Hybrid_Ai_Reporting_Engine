@@ -39,7 +39,7 @@ if not csv_files:
 # Load CSV
 # -----------------------------
 file_path = csv_files[0]
-df = pd.read_csv(file_path)
+df = pd.csv(file_path)
 
 st.success("✅ Dataset loaded successfully!")
 
