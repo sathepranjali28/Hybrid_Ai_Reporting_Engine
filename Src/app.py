@@ -680,4 +680,63 @@ else:
     st.info(
         "Anomaly column was not found in the dataset."
     )
-    
+
+st.info(
+    "Anomaly column was not found in the dataset."
+)
+
+# Smart Business Recommendations
+
+st.markdown("---")
+st.header("💡 Smart Business Recommendations")
+
+if "df" in locals() and not df.empty:
+
+    sales_column = locals().get("sales_col")
+    profit_column = locals().get("profit_col")
+
+    if sales_column in df.columns and profit_column in df.columns:
+
+        total_sales = df[sales_column].sum()
+        total_profit = df[profit_column].sum()
+
+        if total_sales > 0:
+
+            profit_margin = (total_profit / total_sales) * 100
+
+            st.metric(
+                "Profit Margin",
+                f"{profit_margin:.2f}%"
+            )
+
+            if profit_margin < 10:
+                st.warning(
+                    "Recommendation: Review business expenses "
+                    "and improve profit margins."
+                )
+
+            else:
+                st.success(
+                    "Recommendation: Maintain the current "
+                    "profit performance and monitor trends."
+                )
+
+            if "region" in df.columns:
+
+                region_sales = df.groupby("region")[sales_column].sum()
+
+                best_region = region_sales.idxmax()
+
+                st.info(
+                    f"Top Performing Region: {best_region}. "
+                    "Study its sales performance for business planning."
+                )
+
+        else:
+            st.info("Sales data is zero. More data is needed.")
+
+    else:
+        st.info("Sales or Profit column is not available.")
+
+else:
+    st.info("Please upload a dataset to see recommendations.")
