@@ -1,4 +1,4 @@
-import pandas as pd
+pandas as pd
 
 df = pd.read_csv("Data/sales.csv")
 total_sales = df["Sales"].sum()
