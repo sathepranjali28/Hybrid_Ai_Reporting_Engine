@@ -58,3 +58,7 @@ B.Sc. Artificial Intelligence & Data Analytics
 Project Status
 
 Developed as an academic and portfolio project.
+
+## Dashboard Preview
+
+![Hybrid AI Reporting Engine Dashboard](screenshots/dashboard.png)
