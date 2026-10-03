@@ -18,14 +18,43 @@ st.set_page_config(
 st.title("📊 Hybrid Data Analytics & AI Reporting Engine")
 st.write("Data Analytics Dashboard")
 
-# -----------------------------
-# Find Data Folder
-# -----------------------------
-base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-data_folder = os.path.join(base_dir, "Data")
+# CSV / Excel Dataset Upload
+st.subheader("Upload Your Dataset")
 
-# Find any CSV file inside Data folder
-csv_files = glob.glob(os.path.join(data_folder, "*.csv"))
+uploaded_file = st.file_uploader(
+    "Choose CSV or Excel file",
+    type=["csv", "xlsx"]
+)
+
+if uploaded_file is not None:
+    try:
+        if uploaded_file.name.endswith(".csv"):
+            df = pd.read_csv(uploaded_file)
+        else:
+            df = pd.read_excel(uploaded_file)
+
+        st.success("Dataset uploaded successfully!")
+
+    except Exception as e:
+        st.error(f"Error loading dataset: {e}")
+        st.stop()
+
+else:
+    # Load default CSV from Data folder
+    base_dir = os.getcwd()
+    data_folder = os.path.join(base_dir, "Data")
+    
+
+    csv_files = glob.glob(os.path.join(data_folder, "*.csv"))
+
+    if not csv_files:
+        st.error("Please upload a CSV or Excel dataset.")
+        st.stop()
+
+    df = pd.read_csv(csv_files[0])
+    st.info("Default dataset loaded successfully!")
+
+
 
 # -----------------------------
 # Check CSV
