@@ -55,23 +55,6 @@ else:
     st.info("Default dataset loaded successfully!")
 
 
-
-# -----------------------------
-# Check CSV
-# -----------------------------
-if not csv_files:
-    st.error("❌ CSV file not found in Data folder.")
-    st.info("Please keep your CSV file inside the Data folder.")
-    st.stop()
-
-# -----------------------------
-# Load CSV
-# -----------------------------
-file_path = csv_files[0]
-df = pd.read_csv(file_path)
-
-st.success("✅ Dataset loaded successfully!")
-
 # -----------------------------
 # Dataset Information
 # -----------------------------
