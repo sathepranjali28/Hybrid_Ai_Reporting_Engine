@@ -62,11 +62,25 @@ st.subheader("📋 Dataset Preview")
 st.dataframe(df.head(10), use_container_width=True)
 
 # -----------------------------
-# Region Filter
+# -----------------------------
+# Flexible Region Filter
 # -----------------------------
 
-if "region" in df.columns:
-    regions = df["region"].dropna().unique().tolist()
+# Remove extra spaces from column names
+df.columns = df.columns.astype(str).str.strip()
+
+# Find column names without case sensitivity
+column_lookup = {
+    col.lower(): col for col in df.columns
+}
+
+region_col = column_lookup.get("region")
+product_col = column_lookup.get("product")
+date_col = column_lookup.get("date")
+
+
+if region_col:
+    regions = df[region_col].dropna().unique().tolist()
 
     selected_region = st.selectbox(
         "Select Region",
@@ -74,12 +88,15 @@ if "region" in df.columns:
     )
 
     if selected_region != "All":
-        df = df[df["region"] == selected_region]
+        df = df[df[region_col] == selected_region]
 
- # Product Filter
 
-if "product" in df.columns:
-    products = df["product"].dropna().unique().tolist()
+# -----------------------------
+# Flexible Product Filter
+# -----------------------------
+
+if product_col:
+    products = df[product_col].dropna().unique().tolist()
 
     selected_product = st.selectbox(
         "Select Product",
@@ -87,30 +104,55 @@ if "product" in df.columns:
     )
 
     if selected_product != "All":
-        df = df[df["product"] == selected_product]
+        df = df[df[product_col] == selected_product]
 
-# Date Filter
 
-if "Date" in df.columns:
-    df["Date"] = pd.to_datetime(df["Date"])
+# -----------------------------
+# Flexible Date Filter
+# -----------------------------
 
-    min_date = df["Date"].min().date()
-    max_date = df["Date"].max().date()
-
-    selected_dates = st.date_input(
-        "Select Date Range",
-        value=(min_date, max_date),
-        min_value=min_date,
-        max_value=max_date
+if date_col:
+    df[date_col] = pd.to_datetime(
+        df[date_col],
+        errors="coerce"
     )
 
-    if isinstance(selected_dates, tuple) and len(selected_dates) == 2:
-        start_date, end_date = selected_dates
+    valid_dates = df[date_col].dropna()
 
-        df = df[
-            (df["Date"].dt.date >= start_date) &
-            (df["Date"].dt.date <= end_date)
-        ]
+    if not valid_dates.empty:
+        min_date = valid_dates.min().date()
+        max_date = valid_dates.max().date()
+
+        selected_dates = st.date_input(
+            "Select Date Range",
+            value=(min_date, max_date),
+            min_value=min_date,
+            max_value=max_date
+        )
+
+        if (
+            isinstance(selected_dates, (tuple, list))
+            and len(selected_dates) == 2
+        ):
+            start_date, end_date = selected_dates
+
+            df = df[
+                df[date_col].notna()
+                & (df[date_col].dt.date >= start_date)
+                & (df[date_col].dt.date <= end_date)
+            ]
+
+
+# -----------------------------
+# Check Filtered Dataset
+# -----------------------------
+
+if df.empty:
+    st.warning(
+        "No data found for the selected filters. "
+        "Please change your filters."
+    )
+    st.stop()
 # -----------------------------
 # Numeric Columns
 # -----------------------------
