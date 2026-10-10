@@ -527,7 +527,6 @@ else:
 
 st.markdown("---")
 st.markdown("## 🌍 Category Performance")
-st.write("Available Columns:", list)
 
 st.write("Available Columns:", df.columns.tolist())
 
