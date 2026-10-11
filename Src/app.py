@@ -1,24 +1,110 @@
-import streamlit as st
-import pandas as pd
 import glob
 import os
-from sklearn.ensemble import IsolationForest
+import textwrap
+from io import BytesIO
+
+import pandas as pd
 import plotly.express as px
-# -----------------------------
-# Page Configuration
-# -----------------------------
+import streamlit as st
+from docx import Document
+from reportlab.pdfgen import canvas
+
+# =============================================================
+# Page Configuration & Title
+# =============================================================
 st.set_page_config(
     page_title="Hybrid Data Analytics & AI Reporting Engine",
     layout="wide"
 )
 
-# -----------------------------
-# Project Title
-# -----------------------------
 st.title("📊 Hybrid Data Analytics & AI Reporting Engine")
 st.write("Data Analytics Dashboard")
 
-# CSV / Excel Dataset Upload
+
+# =============================================================
+# Helper functions
+# =============================================================
+def find_col(columns, keywords):
+    """Return the first column whose name contains one of the keywords."""
+    for keyword in keywords:
+        for col in columns:
+            if keyword in col.lower():
+                return col
+    return None
+
+
+def fmt(value):
+    """Format a number for display; None becomes N/A."""
+    if value is None or pd.isna(value):
+        return "N/A"
+    return f"{value:,.2f}"
+
+
+def health_check(data, sales, profit, quantity, date):
+    """Return (score, issues) describing the quality of the raw data."""
+    total_rows = len(data)
+    bad_rows = pd.Series(False, index=data.index)
+
+    missing = data.isna()
+    duplicates = data.duplicated()
+    bad_rows |= missing.any(axis=1)
+    bad_rows |= duplicates
+
+    not_numeric = pd.Series(False, index=data.index)
+    negative = pd.Series(False, index=data.index)
+
+    for col in [sales, profit, quantity]:
+        if col:
+            converted = pd.to_numeric(data[col], errors="coerce")
+            not_numeric |= converted.isna() & data[col].notna()
+            if col != profit:  # negative profit (loss) is valid
+                negative |= converted < 0
+
+    invalid_dates = pd.Series(False, index=data.index)
+    if date:
+        parsed = pd.to_datetime(data[date], errors="coerce")
+        invalid_dates = parsed.isna() & data[date].notna()
+
+    bad_rows |= not_numeric | negative | invalid_dates
+
+    issues = {
+        "Missing values": int(missing.sum().sum()),
+        "Duplicate rows": int(duplicates.sum()),
+        "Non-numeric values in number columns": int(not_numeric.sum()),
+        "Negative sales / quantity values": int(negative.sum()),
+        "Invalid dates": int(invalid_dates.sum()),
+    }
+
+    score = 100.0 * (1 - bad_rows.sum() / total_rows) if total_rows else 0.0
+    return score, issues
+
+
+def partial_month_note(month, last_date):
+    """Warn when a month is the final month of the data and not fully covered."""
+    if (
+        last_date is not None
+        and not pd.isna(last_date)
+        and month == last_date.strftime("%Y-%m")
+        and last_date.day < last_date.days_in_month
+    ):
+        return f" (Note: {month} may be incomplete, data ends on {last_date.date()}.)"
+    return ""
+
+
+def group_table(data, dim, sales, profit):
+    """Sales, profit and margin % grouped by a column."""
+    value_cols = [c for c in [sales, profit] if c]
+    table = data.groupby(dim)[value_cols].sum()
+    if sales and profit:
+        table["Margin %"] = (
+            table[profit] / table[sales].replace(0, float("nan")) * 100
+        ).round(2)
+    return table.reset_index()
+
+
+# =============================================================
+# Upload / Load dataset
+# =============================================================
 st.subheader("Upload Your Dataset")
 
 uploaded_file = st.file_uploader(
@@ -28,10 +114,10 @@ uploaded_file = st.file_uploader(
 
 if uploaded_file is not None:
     try:
-        if uploaded_file.name.endswith(".csv"):
-            df = pd.read_csv(uploaded_file)
+        if uploaded_file.name.lower().endswith(".csv"):
+            df_raw = pd.read_csv(uploaded_file)
         else:
-            df = pd.read_excel(uploaded_file)
+            df_raw = pd.read_excel(uploaded_file)
 
         st.success("Dataset uploaded successfully!")
 
@@ -40,83 +126,103 @@ if uploaded_file is not None:
         st.stop()
 
 else:
-    # Load default CSV from Data folder
-    base_dir = os.getcwd()
-    data_folder = os.path.join(base_dir, "Data")
-    
-
-    csv_files = glob.glob(os.path.join(data_folder, "*.csv"))
+    data_folder = os.path.join(os.getcwd(), "Data")
+    csv_files = sorted(glob.glob(os.path.join(data_folder, "*.csv")))
 
     if not csv_files:
         st.error("Please upload a CSV or Excel dataset.")
         st.stop()
 
-    df = pd.read_csv(csv_files[0])
+    df_raw = pd.read_csv(csv_files[0])
     st.info("Default dataset loaded successfully!")
 
+if df_raw.empty:
+    st.error("The dataset is empty. Please upload a file with data.")
+    st.stop()
 
-# -----------------------------
-# Dataset Information
-# -----------------------------
+# =============================================================
+# Detect columns (case-insensitive)
+# =============================================================
+df_raw.columns = df_raw.columns.astype(str).str.strip()
+all_cols = df_raw.columns.tolist()
+lookup = {col.lower(): col for col in all_cols}
+
+region_col = lookup.get("region")
+product_col = lookup.get("product")
+date_col = lookup.get("date")
+sales_col = find_col(all_cols, ["sales", "revenue"])
+profit_col = find_col(all_cols, ["profit"])
+quantity_col = find_col(all_cols, ["quantity", "qty"])
+
+# =============================================================
+# Dataset Preview
+# =============================================================
 st.subheader("📋 Dataset Preview")
-st.dataframe(df.head(10), use_container_width=True)
+st.dataframe(df_raw.head(10))
 
-# -----------------------------
-# -----------------------------
-# Flexible Region Filter
-# -----------------------------
+# =============================================================
+# Data Health Check (runs on the raw data)
+# =============================================================
+st.subheader("🩺 Data Health Check")
 
-# Remove extra spaces from column names
-df.columns = df.columns.astype(str).str.strip()
+health_score, health_issues = health_check(
+    df_raw, sales_col, profit_col, quantity_col, date_col
+)
 
-# Find column names without case sensitivity
-column_lookup = {
-    col.lower(): col for col in df.columns
-}
+st.metric("Data Health Score", f"{health_score:.0f}%")
+st.caption("Share of rows with no missing, duplicate, invalid or negative values.")
 
-region_col = column_lookup.get("region")
-product_col = column_lookup.get("product")
-date_col = column_lookup.get("date")
+for issue_name, issue_count in health_issues.items():
+    if issue_count:
+        st.warning(f"{issue_name}: {issue_count}")
+    else:
+        st.success(f"{issue_name}: 0")
 
-
-if region_col:
-    regions = df[region_col].dropna().unique().tolist()
-
-    selected_region = st.selectbox(
-        "Select Region",
-        ["All"] + regions
+if len(df_raw) < 30:
+    st.info(
+        "Small dataset: only "
+        f"{len(df_raw)} rows. Insights are more reliable with 30+ rows."
     )
 
-    if selected_region != "All":
-        df = df[df[region_col] == selected_region]
+# =============================================================
+# Clean data for analysis
+# =============================================================
+df_all = df_raw.copy()
 
+for col in [sales_col, profit_col, quantity_col]:
+    if col:
+        df_all[col] = pd.to_numeric(df_all[col], errors="coerce")
 
-# -----------------------------
-# Flexible Product Filter
-# -----------------------------
-
-if product_col:
-    products = df[product_col].dropna().unique().tolist()
-
-    selected_product = st.selectbox(
-        "Select Product",
-        ["All"] + products
-    )
-
-    if selected_product != "All":
-        df = df[df[product_col] == selected_product]
-
-
-# -----------------------------
-# Flexible Date Filter
-# -----------------------------
+if sales_col and df_all[sales_col].notna().sum() == 0:
+    sales_col = None
+if profit_col and df_all[profit_col].notna().sum() == 0:
+    profit_col = None
 
 if date_col:
-    df[date_col] = pd.to_datetime(
-        df[date_col],
-        errors="coerce"
-    )
+    df_all[date_col] = pd.to_datetime(df_all[date_col], errors="coerce")
+    if df_all[date_col].notna().sum() == 0:
+        date_col = None
 
+# =============================================================
+# Filters
+# =============================================================
+df = df_all.copy()
+
+if region_col:
+    regions = sorted(df[region_col].dropna().astype(str).unique().tolist())
+    selected_region = st.selectbox("Select Region", ["All"] + regions)
+
+    if selected_region != "All":
+        df = df[df[region_col].astype(str) == selected_region]
+
+if product_col:
+    products = sorted(df[product_col].dropna().astype(str).unique().tolist())
+    selected_product = st.selectbox("Select Product", ["All"] + products)
+
+    if selected_product != "All":
+        df = df[df[product_col].astype(str) == selected_product]
+
+if date_col:
     valid_dates = df[date_col].dropna()
 
     if not valid_dates.empty:
@@ -130,22 +236,13 @@ if date_col:
             max_value=max_date
         )
 
-        if (
-            isinstance(selected_dates, (tuple, list))
-            and len(selected_dates) == 2
-        ):
+        if isinstance(selected_dates, (tuple, list)) and len(selected_dates) == 2:
             start_date, end_date = selected_dates
-
             df = df[
                 df[date_col].notna()
                 & (df[date_col].dt.date >= start_date)
                 & (df[date_col].dt.date <= end_date)
             ]
-
-
-# -----------------------------
-# Check Filtered Dataset
-# -----------------------------
 
 if df.empty:
     st.warning(
@@ -153,643 +250,344 @@ if df.empty:
         "Please change your filters."
     )
     st.stop()
-# -----------------------------
-# Numeric Columns
-# -----------------------------
-numeric_columns = df.select_dtypes(include="number").columns.tolist()
 
-# -----------------------------
-# Find Sales Column
-# -----------------------------
-sales_col = next(
-    (col for col in df.columns if "sales" in col.lower()),
-    None
-)
-
-# -----------------------------
-# Find Profit Column
-# -----------------------------
-profit_col = next(
-    (col for col in df.columns if "profit" in col.lower()),
-    None
-)
-
-# -----------------------------
-# Key Metrics
-# -----------------------------
-st.subheader("📌 Key Metrics")
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    if sales_col:
-        total_sales = df[sales_col].sum()
-        st.metric("Total Sales", f"{total_sales:,.2f}")
-    else:
-        st.metric("Total Sales", "N/A")
-
-with col2:
-    if profit_col:
-        total_profit = df[profit_col].sum()
-        st.metric("Total Profit", f"{total_profit:,.2f}")
-    else:
-        st.metric("Total Profit", "N/A")
-
-with col3:
-    if sales_col:
-        average_sales = df[sales_col].mean()
-        st.metric("Average Sales", f"{average_sales:,.2f}")
-    else:
-        st.metric("Average Sales", "N/A")
-
-# -----------------------------
-# Data Visualization
-# -----------------------------
-st.subheader("📈 Data Visualization")
+# =============================================================
+# Key numbers (calculated once, used everywhere below)
+# =============================================================
+total_sales = average_sales = highest_sales = lowest_sales = None
+total_profit = highest_profit = lowest_profit = profit_margin = None
 
 if sales_col:
-    st.write("Sales Chart")
-    st.line_chart(df[sales_col])
+    total_sales = float(df[sales_col].sum())
+    average_sales = float(df[sales_col].mean())
+    highest_sales = float(df[sales_col].max())
+    lowest_sales = float(df[sales_col].min())
 
 if profit_col:
-    st.write("Profit Chart")
-    st.line_chart(df[profit_col])
+    total_profit = float(df[profit_col].sum())
+    highest_profit = float(df[profit_col].max())
+    lowest_profit = float(df[profit_col].min())
 
-# -----------------------------
+if total_sales and total_profit is not None and total_sales > 0:
+    profit_margin = total_profit / total_sales * 100
+
+# =============================================================
+# Key Metrics
+# =============================================================
+st.subheader("📌 Key Metrics")
+
+m1, m2, m3, m4 = st.columns(4)
+m1.metric("Total Sales", fmt(total_sales))
+m2.metric("Total Profit", fmt(total_profit))
+m3.metric("Average Sales", fmt(average_sales))
+m4.metric(
+    "Profit Margin",
+    f"{profit_margin:.2f}%" if profit_margin is not None else "N/A"
+)
+
+# =============================================================
+# Data Visualization (by date, not by row number)
+# =============================================================
+st.subheader("📈 Data Visualization")
+
+value_cols = [c for c in [sales_col, profit_col] if c]
+
+if date_col and value_cols:
+    view_by = st.selectbox("View trend by", ["Daily", "Weekly", "Monthly"])
+    freq = {"Daily": "D", "Weekly": "W", "Monthly": "MS"}[view_by]
+
+    trend = (
+        df.dropna(subset=[date_col])
+        .groupby(pd.Grouper(key=date_col, freq=freq))[value_cols]
+        .sum()
+        .reset_index()
+    )
+
+    fig_trend = px.line(
+        trend,
+        x=date_col,
+        y=value_cols,
+        markers=True,
+        title=f"Sales and Profit Trend ({view_by})"
+    )
+    st.plotly_chart(fig_trend)
+elif value_cols:
+    st.info("No valid Date column found, so the trend chart is skipped.")
+else:
+    st.info("No Sales or Profit column found for charts.")
+
+# =============================================================
 # Dataset Statistics
-# -----------------------------
+# =============================================================
 st.subheader("📊 Dataset Statistics")
 
+numeric_columns = df.select_dtypes(include="number").columns.tolist()
+
 if numeric_columns:
-    st.dataframe(
-        df[numeric_columns].describe(),
-        use_container_width=True
-    )
+    st.dataframe(df[numeric_columns].describe())
 else:
     st.info("No numeric columns found in the dataset.")
 
-# -----------------------------
-# Basic AI-style Insights
-# -----------------------------
-st.subheader("🤖 Basic AI-Style Insight")
-
-if sales_col:
-    highest_sales = df[sales_col].max()
-    lowest_sales = df[sales_col].min()
-
-    st.write(
-        f"• Highest sales value: **{highest_sales:,.2f}**"
-    )
-
-    st.write(
-        f"• Lowest sales value: **{lowest_sales:,.2f}**"
-    )
-
-if profit_col:
-    highest_profit = df[profit_col].max()
-    lowest_profit = df[profit_col].min()
-
-    st.write(
-        f"• Highest profit value: **{highest_profit:,.2f}**"
-    )
-
-    st.write(
-        f"• Lowest profit value: **{lowest_profit:,.2f}**"
-    )
-
-st.success("🎉 Dashboard analysis completed!")
-
-
-
-# -----------------------------
-# AI-Style Business Report
-# -----------------------------
-
+# =============================================================
+# AI Business Report (text) + downloads
+# =============================================================
 st.header("🤖 AI Business Report")
 
-report = []
+report_lines = []
 
 if sales_col:
-    report.append(
-        f"Total sales are {df[sales_col].sum():,.2f}. "
-        f"The highest sales value is {df[sales_col].max():,.2f}, "
-        f"while the lowest sales value is {df[sales_col].min():,.2f}."
+    report_lines.append(
+        f"Total sales are {total_sales:,.2f}. "
+        f"The highest single sale is {highest_sales:,.2f} and "
+        f"the lowest is {lowest_sales:,.2f}."
     )
 
 if profit_col:
-    report.append(
-        f"Total profit is {df[profit_col].sum():,.2f}. "
-        f"The highest profit value is {df[profit_col].max():,.2f}, "
-        f"while the lowest profit value is {df[profit_col].min():,.2f}."
+    report_lines.append(
+        f"Total profit is {total_profit:,.2f}. "
+        f"The highest single profit is {highest_profit:,.2f} and "
+        f"the lowest is {lowest_profit:,.2f}."
     )
 
-if sales_col and profit_col:
-    report.append(
-        "The dashboard compares sales and profit to provide "
-        "a quick overview of business performance."
-    )
+if profit_margin is not None:
+    report_lines.append(f"The overall profit margin is {profit_margin:.2f}%.")
 
-for sentence in report:
+report_lines.append(f"Data health score of the uploaded data: {health_score:.0f}%.")
+
+for sentence in report_lines:
     st.write("• " + sentence)
 
-# -----------------------------
-# Download AI Business Report
-# -----------------------------
-
-from docx import Document
-from reportlab.pdfgen import canvas
-from io import BytesIO
 
 def create_docx_report():
     doc = Document()
-
     doc.add_heading("Hybrid Data Analytics & AI Reporting Engine", level=1)
     doc.add_heading("AI Business Report", level=2)
-
-    if sales_col:
-        doc.add_paragraph(
-            f"Total Sales: {df[sales_col].sum():,.2f}"
-        )
-        doc.add_paragraph(
-            f"Highest Sales: {df[sales_col].max():,.2f}"
-        )
-        doc.add_paragraph(
-            f"Lowest Sales: {df[sales_col].min():,.2f}"
-        )
-        doc.add_paragraph(
-            f"Average Sales: {df[sales_col].mean():,.2f}"
-        )
-
-    if profit_col:
-        doc.add_paragraph(
-            f"Total Profit: {df[profit_col].sum():,.2f}"
-        )
-        doc.add_paragraph(
-            f"Highest Profit: {df[profit_col].max():,.2f}"
-        )
-        doc.add_paragraph(
-            f"Lowest Profit: {df[profit_col].min():,.2f}"
-        )
-
+    for line in report_lines:
+        doc.add_paragraph(line)
     output = BytesIO()
     doc.save(output)
     output.seek(0)
-
     return output
 
-report_file = create_docx_report()
-
-st.download_button(
-    label="📄 Download AI Report (DOCX)",
-    data=report_file,
-    file_name="AI_Business_Report.docx",
-    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-)
-
-from io import BytesIO
 
 def create_pdf_report():
     output = BytesIO()
     pdf = canvas.Canvas(output)
-
     pdf.setTitle("AI Business Report")
-
     pdf.drawString(50, 800, "Hybrid Data Analytics & AI Reporting Engine")
     pdf.drawString(50, 775, "AI Business Report")
 
-    pdf.drawString(50, 740, f"Total Sales: {total_sales}")
-    pdf.drawString(50, 720, f"Total Profit: {total_profit}")
-    pdf.drawString(50, 700, f"Average Sales: {average_sales}")
-
-    pdf.drawString(50, 665, f"Highest Sales: {highest_sales}")
-    pdf.drawString(50, 645, f"Lowest Sales: {lowest_sales}")
-
-    pdf.drawString(50, 610, f"Highest Profit: {highest_profit}")
-    pdf.drawString(50, 590, f"Lowest Profit: {lowest_profit}")
+    y = 740
+    for line in report_lines:
+        for part in textwrap.wrap(line, 90) or [""]:
+            if y < 60:
+                pdf.showPage()
+                y = 800
+            pdf.drawString(50, y, part)
+            y -= 18
+        y -= 8
 
     pdf.save()
     output.seek(0)
-
     return output
 
 
-pdf_file = create_pdf_report()
+st.download_button(
+    label="📄 Download AI Report (DOCX)",
+    data=create_docx_report(),
+    file_name="AI_Business_Report.docx",
+    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+)
 
 st.download_button(
     label="📕 Download AI Report (PDF)",
-    data=pdf_file,
+    data=create_pdf_report(),
     file_name="AI_Business_Report.pdf",
     mime="application/pdf"
 )
 
-# ---------------- SMART AI BUSINESS INSIGHTS ----------------
-
-st.subheader("🤖 AI Business Insights")
-
-# Sales Insight
-if total_sales > average_sales:
-    st.success("📈 Sales performance is strong because total sales are above the average sales value.")
-else:
-    st.info("📊 Sales performance can be improved because total sales are below the average sales value.")
-
-# Profit Insight
-if total_profit > 0:
-    st.success("💰 The business is generating positive profit.")
-else:
-    st.warning("⚠️ The business is currently showing a negative profit.")
-
-# Sales Range Insight
-sales_range = highest_sales - lowest_sales
-
-if sales_range > average_sales:
-    st.info("📊 Sales values show a significant variation across the dataset.")
-else:
-    st.info("📊 Sales values are relatively consistent across the dataset.")
-
-# Recommendation
-st.markdown("### 💡 AI Recommendation")
-
-if total_profit > 0 and highest_sales > average_sales:
-    st.write(
-        "Focus on maintaining high-performing sales areas and improving "
-        "low-performing sales values to increase overall profitability."
-    )
-else:
-    st.write(
-        "Review low-performing sales and profit values and identify "
-        "areas where business performance can be improved."
-    )
-# ---------------- ANOMALY DETECTION ----------------
-
-st.subheader("🔍 AI Anomaly Detection")
-
-numeric_columns = df.select_dtypes(include="number").columns
-
-if len(numeric_columns) > 0:
-
-    anomaly_column = st.selectbox(
-        "Select a numeric column:",
-        numeric_columns
-    )
-
-    model = IsolationForest(
-        contamination=0.05,
-        random_state=42
-    )
-
-    df["Anomaly"] = model.fit_predict(
-        df[[anomaly_column]]
-    )
-
-    anomaly_count = (df["Anomaly"] == -1).sum()
-
-    st.metric("Anomalies Detected", anomaly_count)
-
-    if anomaly_count > 0:
-        st.warning(
-            f"⚠️ {anomaly_count} unusual values detected in {anomaly_column}."
-        )
-
-        st.dataframe(
-            df[df["Anomaly"] == -1]
-        )
-    else:
-        st.success("✅ No unusual values detected.")
-
-# ---------------- AI ANOMALY SUMMARY ----------------
-
-st.markdown("### 🤖 AI Anomaly Summary")
-
-if anomaly_count > 0:
-    st.write(
-        f"The AI model detected {anomaly_count} unusual values "
-        f"in the selected {anomaly_column} column."
-    )
-
-    st.info(
-        "💡 Recommendation: Review these unusual records to identify "
-        "possible data-entry errors, unusual business activity, or "
-        "important changes in performance."
-    )
-else:
-    st.success(
-        "✅ No unusual values were detected in the selected column."
-    )
-
-# BUSINESS DASHBOARD
-# ============================================================
-
+# =============================================================
+# Performance by Product and Region
+# =============================================================
 st.markdown("---")
-st.markdown("## 📊 Bussiness Dashboard")
+st.markdown("## 📊 Business Dashboard")
 
-st.write("### Sales & Profit Overview")
+product_table = None
+region_table = None
 
-# Find Sales and Profit columns
-sales_col = None
-profit_col = None
-
-for col in df.columns:
-    col_lower = col.lower()
-
-    if "sales" in col_lower or "revenue" in col_lower:
-        sales_col = col
-
-    if "profit" in col_lower:
-        profit_col = col
-
-# Sales vs Profit chart
-if sales_col and profit_col:
-
-    dashboard_data = pd.DataFrame({
-        "Metric": ["Total Sales", "Total Profit"],
-        "Value": [
-            df[sales_col].sum(),
-            df[profit_col].sum()
-        ]
-    })
-
-    fig_dashboard = px.bar(
-        dashboard_data,
-        x="Metric",
-        y="Value",
-        title="Total Sales vs Total Profit",
-        text="Value"
-    )
-
-    st.plotly_chart(fig_dashboard, use_container_width=True)
-
-else:
-    st.warning("Sales or Profit column was not found in the dataset.") 
-
-# ============================================================
-# CATEGORY PERFORMANCE
-# ============================================================
-
-st.markdown("---")
-st.markdown("## 🌍 Category Performance")
-
-st.write("Available Columns:", df.columns.tolist())
-
-category_col = None
-
-for col in df.columns:
-    col_lower = col.lower()
-
-    if "category" in col_lower or "product" in col_lower:
-        category_col = col
-
-        break
-
-if category_col and sales_col:
-
-    category_data = (
-        df.groupby(category_col)[sales_col]
-        .sum()
-        .reset_index()
-    )
-
-    fig_category = px.bar(
-        category_data,
-        x=category_col,
-        y=sales_col,
-        title="Sales by Category",
-        text=sales_col
-    )
-
+if sales_col and product_col:
+    product_table = group_table(df, product_col, sales_col, profit_col)
+    st.write("### Performance by Product")
     st.plotly_chart(
-        fig_category,
-        use_container_width=True
+        px.bar(product_table, x=product_col, y=sales_col,
+               title="Sales by Product", text=sales_col)
     )
+    st.dataframe(product_table)
 
-else:
-    st.info("Category column was not found in the dataset.")   
+if sales_col and region_col:
+    region_table = group_table(df, region_col, sales_col, profit_col)
+    st.write("### Performance by Region")
+    st.plotly_chart(
+        px.bar(region_table, x=region_col, y=sales_col,
+               title="Sales by Region", text=sales_col)
+    )
+    st.dataframe(region_table)
 
-# ============================================================
-# AI BUSINESS INSIGHTS
-# ============================================================
+if product_table is None and region_table is None:
+    st.info("Product/Region and Sales columns are needed for this section.")
 
+# =============================================================
+# AI Business Insights & Recommendations (rule-based)
+# =============================================================
 st.markdown("---")
 st.markdown("## 🤖 AI Business Insights")
 
-if category_col and sales_col:
+insight_count = 0
 
-    best_category = category_data.loc[
-        category_data[sales_col].idxmax(),
-        category_col
-    ]
+if profit_margin is not None:
+    if profit_margin >= 20:
+        st.success(f"💰 Healthy profit margin of {profit_margin:.1f}%.")
+    elif profit_margin >= 10:
+        st.info(f"💰 Moderate profit margin of {profit_margin:.1f}%.")
+    elif profit_margin >= 0:
+        st.warning(f"⚠️ Low profit margin of {profit_margin:.1f}%. Review costs.")
+    else:
+        st.error(f"🚨 The business is making a loss (margin {profit_margin:.1f}%).")
+    insight_count += 1
 
-    best_sales = category_data[sales_col].max()
-
-    total_sales = category_data[sales_col].sum()
-
-    best_percentage = (best_sales / total_sales) * 100
-
-    st.success(
-        f"🏆 *Top Performing Category:* {best_category}"
-    )
-
+if product_table is not None and len(product_table) >= 2 and total_sales:
+    top = product_table.loc[product_table[sales_col].idxmax()]
+    share = top[sales_col] / total_sales * 100
     st.info(
-        f"📈 *Business Insight:* {best_category} generated "
-        f"{best_sales:,.2f} in sales, contributing approximately "
-        f"{best_percentage:.1f}% of total category sales."
+        f"🏆 Top product by sales: {top[product_col]} "
+        f"({share:.1f}% of total sales)."
     )
+    insight_count += 1
 
-    st.write(
-        "💡 *Recommendation:* Focus on the top-performing "
-        "category while monitoring the performance of other categories "
-        "to identify growth opportunities."
-    )
-
-else:
-    st.warning("AI insights cannot be generated because category or sales data is missing.")    
-
-# ============================================================
-# TREND ANALYSIS
-# ============================================================
-
-st.markdown("---")
-st.markdown("## 📈 Sales & Profit Trend Analysis")
-
-if "Date" in df.columns and sales_col:
-
-    trend_data = df.copy()
-
-    trend_data["Date"] = pd.to_datetime(
-        trend_data["Date"],
-        errors="coerce"
-    )
-
-    trend_data = trend_data.dropna(subset=["Date"])
-
-    trend_data = (
-        trend_data
-        .groupby("Date")[[sales_col, "Profit"]]
-        .sum()
-        .reset_index()
-        .sort_values("Date")
-    )
-
-    fig_trend = px.line(
-        trend_data,
-        x="Date",
-        y=[sales_col, "Profit"],
-        markers=True,
-        title="Sales and Profit Trend"
-    )
-
-    st.plotly_chart(
-        fig_trend,
-        use_container_width=True
-    )
-
-else:
-    st.info("Date, Sales or Profit column was not found.")
-
-# ============================================================
-# TREND-BASED AI INSIGHTS
-# ============================================================
-
-st.markdown("---")
-st.markdown("## 🤖 Trend-Based AI Insights")
-
-if len(trend_data) >= 2:
-
-    first_sales = trend_data[sales_col].iloc[0]
-    last_sales = trend_data[sales_col].iloc[-1]
-
-    first_profit = trend_data["Profit"].iloc[0]
-    last_profit = trend_data["Profit"].iloc[-1]
-
-    if last_sales > first_sales:
-        sales_insight = "📈 Sales are showing an increasing trend."
-    elif last_sales < first_sales:
-        sales_insight = "📉 Sales are showing a decreasing trend."
-    else:
-        sales_insight = "➡️ Sales are relatively stable."
-
-    if last_profit > first_profit:
-        profit_insight = "📈 Profit is showing an increasing trend."
-    elif last_profit < first_profit:
-        profit_insight = "📉 Profit is showing a decreasing trend."
-    else:
-        profit_insight = "➡️ Profit is relatively stable."
-
-    st.info(sales_insight)
-    st.info(profit_insight)
-
-    st.success(
-        "💡 Business Recommendation: Monitor the latest sales and "
-        "profit performance regularly to identify growth opportunities "
-        "and potential business risks."
-    )
-
-else:
-    st.warning("Not enough data available for trend-based insights.")
-
-# ============================================================
-# ANOMALY INSIGHTS
-# ============================================================
-
-st.markdown("---")
-st.markdown("## ⚠️ Anomaly Insights")
-
-if "Anomaly" in df.columns:
-
-    anomaly_count = (df["Anomaly"] == -1).sum()
-
-    st.metric(
-        "Detected Anomalies",
-        anomaly_count
-    )
-
-    if anomaly_count > 0:
-
-        anomaly_data = df[df["Anomaly"] == -1]
-
-        st.warning(
-            f"⚠️ {anomaly_count} unusual records were detected "
-            "in the dataset."
-        )
-
-        st.write("### 🔍 Unusual Records")
-
-        st.dataframe(
-            anomaly_data,
-            use_container_width=True
-        )
-
+    if "Margin %" in product_table.columns and product_table["Margin %"].notna().any():
+        low = product_table.loc[product_table["Margin %"].idxmin()]
+        high = product_table.loc[product_table["Margin %"].idxmax()]
         st.info(
-            "💡 Business Insight: These unusual records should be "
-            "reviewed to understand whether they represent unusual "
-            "business activity, data errors, or exceptional transactions."
+            f"📉 Lowest margin product: {low[product_col]} "
+            f"({low['Margin %']:.1f}%). "
+            f"Highest margin: {high[product_col]} ({high['Margin %']:.1f}%)."
         )
+        insight_count += 1
 
-    else:
-        st.success(
-            "✅ No unusual records were detected in the dataset."
-        )
-
-else:
+if region_table is not None and len(region_table) >= 2:
+    best_region = region_table.loc[region_table[sales_col].idxmax()]
+    worst_region = region_table.loc[region_table[sales_col].idxmin()]
     st.info(
-        "Anomaly column was not found in the dataset."
+        f"🌍 Best region: {best_region[region_col]} | "
+        f"Weakest region: {worst_region[region_col]}."
+    )
+    insight_count += 1
+
+if date_col and sales_col:
+    monthly = (
+        df.dropna(subset=[date_col])
+        .assign(Month=lambda d: d[date_col].dt.strftime("%Y-%m"))
+        .groupby("Month")[sales_col].sum()
+    )
+    if len(monthly) >= 2 and monthly.iloc[-2] != 0:
+        change = (monthly.iloc[-1] - monthly.iloc[-2]) / monthly.iloc[-2] * 100
+        icon = "📈" if change >= 0 else "📉"
+        word = "increased" if change >= 0 else "decreased"
+        st.info(
+            f"{icon} Sales {word} by {abs(change):.1f}% "
+            f"in {monthly.index[-1]} compared to {monthly.index[-2]}."
+            + partial_month_note(monthly.index[-1], df[date_col].max())
+        )
+        insight_count += 1
+
+if insight_count == 0:
+    st.info("Not enough data to generate insights.")
+
+st.markdown("### 💡 Recommendations")
+
+recommendations = []
+if profit_margin is not None and profit_margin < 10:
+    recommendations.append(
+        "Overall margin is low: review discounts and costs before pushing more volume."
+    )
+if (
+    product_table is not None
+    and "Margin %" in product_table.columns
+    and product_table["Margin %"].notna().any()
+    and len(product_table) >= 2
+):
+    low = product_table.loc[product_table["Margin %"].idxmin()]
+    recommendations.append(
+        f"Review pricing or costs of {low[product_col]}, "
+        "it earns the least profit per unit of sales."
+    )
+if region_table is not None and len(region_table) >= 2:
+    worst_region = region_table.loc[region_table[sales_col].idxmin()]
+    recommendations.append(
+        f"Investigate why {worst_region[region_col]} has the lowest sales "
+        "(stock, demand or team coverage)."
     )
 
-st.info(
-    "Anomaly column was not found in the dataset."
-)
-
-# Smart Business Recommendations
-
-st.markdown("---")
-st.header("💡 Smart Business Recommendations")
-
-if "df" in locals() and not df.empty:
-
-    sales_column = locals().get("sales_col")
-    profit_column = locals().get("profit_col")
-
-    if sales_column in df.columns and profit_column in df.columns:
-
-        total_sales = df[sales_column].sum()
-        total_profit = df[profit_column].sum()
-
-        if total_sales > 0:
-
-            profit_margin = (total_profit / total_sales) * 100
-
-            st.metric(
-                "Profit Margin",
-                f"{profit_margin:.2f}%"
-            )
-
-            if profit_margin < 10:
-                st.warning(
-                    "Recommendation: Review business expenses "
-                    "and improve profit margins."
-                )
-
-            else:
-                st.success(
-                    "Recommendation: Maintain the current "
-                    "profit performance and monitor trends."
-                )
-
-            if "region" in df.columns:
-
-                region_sales = df.groupby("region")[sales_column].sum()
-
-                best_region = region_sales.idxmax()
-
-                st.info(
-                    f"Top Performing Region: {best_region}. "
-                    "Study its sales performance for business planning."
-                )
-
-        else:
-            st.info("Sales data is zero. More data is needed.")
-
-    else:
-        st.info("Sales or Profit column is not available.")
-
+if recommendations:
+    for rec in recommendations:
+        st.write("• " + rec)
 else:
-    st.info("Please upload a dataset to see recommendations.")
+    st.write("• Keep monitoring sales and margin regularly.")
+
+# =============================================================
+# Why did it change? (uses the full dataset, ignores filters)
+# =============================================================
+st.markdown("---")
+st.markdown("## 🔎 Why Did Sales Change?")
+
+if date_col and sales_col:
+    base = df_all.dropna(subset=[date_col]).copy()
+    base["Month"] = base[date_col].dt.strftime("%Y-%m")
+    months = sorted(base["Month"].unique().tolist())
+    dims = [c for c in [product_col, region_col] if c]
+
+    if len(months) >= 2 and dims:
+        st.caption("This section uses the full dataset and ignores the filters above.")
+
+        dim = st.selectbox("Explain change by", dims)
+        prev_month = st.selectbox("Previous month", months, index=len(months) - 2)
+        curr_month = st.selectbox("Current month", months, index=len(months) - 1)
+
+        if prev_month == curr_month:
+            st.info("Please select two different months.")
+        else:
+            prev = base[base["Month"] == prev_month].groupby(dim)[sales_col].sum()
+            curr = base[base["Month"] == curr_month].groupby(dim)[sales_col].sum()
+
+            comp = pd.DataFrame({"Previous": prev, "Current": curr}).fillna(0)
+            comp["Change"] = comp["Current"] - comp["Previous"]
+            comp["Change %"] = (
+                comp["Change"] / comp["Previous"].replace(0, float("nan")) * 100
+            ).round(1)
+            comp = comp.sort_values("Change")
+
+            total_prev = float(comp["Previous"].sum())
+            total_curr = float(comp["Current"].sum())
+            total_change = total_curr - total_prev
+            worst = comp.index[0]
+            best = comp.index[-1]
+
+            if total_prev > 0:
+                pct_text = f" ({total_change / total_prev * 100:+.1f}%)"
+            else:
+                pct_text = ""
+
+            verb = "rose" if total_change >= 0 else "fell"
+            summary = (
+                f"Sales {verb} by {abs(total_change):,.0f}{pct_text} "
+                f"from {prev_month} to {curr_month}. "
+            )
+            if comp["Change"].iloc[0] < 0:
+                summary += (
+                    f"Biggest drop: {worst} ({comp['Change'].iloc[0]:,.0f}). "
+                )
+                if total_change < 0 and abs(comp["Change"].iloc[0]) <= abs(total_change):
+                    share = comp["Change"].iloc[0] / total_change * 100
+                    summary += f"It alone accounts for {share:.0f}% of the net fall. "
+                else:
+                    summary += "Gains elsewhere offset part of this drop.
