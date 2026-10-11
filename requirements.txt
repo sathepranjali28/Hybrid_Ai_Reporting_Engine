@@ -1,10 +1,6 @@
-pandas
-numpy
-matplotlib
-seaborn
 streamlit
+pandas
 plotly
-openpyxl
-scikit-learn
 python-docx
 reportlab
+openpyxl
