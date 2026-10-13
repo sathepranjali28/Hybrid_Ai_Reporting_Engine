@@ -3,6 +3,7 @@ import os
 import textwrap
 from io import BytesIO
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -590,4 +591,4 @@ if date_col and sales_col:
                     share = comp["Change"].iloc[0] / total_change * 100
                     summary += f"It alone accounts for {share:.0f}% of the net fall. "
                 else:
-                    summary += "Gains elsewhere offset part of this drop"
+                    summary += "Gains elsewhere offset"
