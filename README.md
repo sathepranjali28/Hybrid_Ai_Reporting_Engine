@@ -1,64 +1,51 @@
-Hybrid Data Analytics & AI Reporting Engine
+# 📊 Hybrid Data Analytics & AI Reporting Engine
 
-An interactive data analytics and AI-powered business reporting web application built using Python and Streamlit.
+Live app: https://hybridaireportingengine-gwqbcij6kqeuu9pdhzgcdg.streamlit.app/
 
-Project Overview
+## Problem
+Small businesses often keep sales data in messy Excel files and have no analyst.
+They cannot tell whether the data is reliable, or why sales went up or down.
 
-The Hybrid Data Analytics & AI Reporting Engine helps users upload datasets, analyze business performance, visualize trends, detect anomalies, and generate automated business reports.
+## Solution
+Upload a CSV or Excel file and the app:
+1. Checks data quality and gives a Data Health Score.
+2. Shows sales and profit trends (daily, weekly, monthly).
+3. Explains why sales changed between two months, ranked by product or region.
+4. Flags unusual records (anomalies).
+5. Generates a business report as DOCX or PDF.
 
-Key Features
+## Features
+- Data Health Check: missing values, duplicates, invalid dates, negative values
+- Filters by region, product and date range
+- Profit margin and top/weakest product and region insights
+- "Why Did Sales Change?" month-to-month comparison
+- Anomaly detection (IQR rule, compared within each product)
+- Downloadable DOCX and PDF reports
 
-- CSV and Excel dataset upload
-- Data cleaning and preprocessing
-- Dataset statistics and profiling
-- Interactive business dashboard
-- Sales and profit analysis
-- Category performance visualization
-- AI-based business insights
-- Anomaly detection using Machine Learning
-- Automated business recommendations
-- PDF and DOCX report generation
+## Screenshots
 
-Technologies Used
 
-- Python
-- Streamlit
-- Pandas
-- NumPy
-- Plotly
-- Scikit-learn
-- Matplotlib
-- Python-docx
-- ReportLab
+![Metrics](screenshots/metrics.png)
 
-Machine Learning
 
-The project uses Isolation Forest for anomaly detection to identify unusual patterns in business datasets.
 
-Installation
 
-git clone YOUR_GITHUB_REPOSITORY_URL
-cd Hybrid_Ai_Reporting_Engine
-pip install -r requirements.txt
+![Data Health Check](screenshots/health_check.png)
 
-Run Application
 
-streamlit run src/app.py
 
-Project Objective
 
-To combine Data Analytics, Business Intelligence, Data Engineering concepts, and Machine Learning into a single interactive reporting platform.
+![Why Did Sales Change](screenshots/why_changed.png)
 
-Developed By
 
-Pranjali Sathe
 
-B.Sc. Artificial Intelligence & Data Analytics
+## Tech Stack
+Python, Streamlit, Pandas, Plotly, python-docx, ReportLab
 
-Project Status
+## Run locally
+    pip install -r requirements.txt
+    streamlit run Src/app.py
 
-Developed as an academic and portfolio project.
-
-## Dashboard Preview
-
-![Hybrid AI Reporting Engine Dashboard](screenshots/dashboard.png)
+## Sample data
+`Data/sales_data.csv` is a generated sample dataset (1,000 rows).
+Run `python Src/make_data.py` to regenerate it.
