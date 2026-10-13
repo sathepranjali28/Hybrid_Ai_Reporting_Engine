@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("Data/sales.csv")
+df = pd.read_csv("Data/sales_data.csv")
 total_sales = df["Sales"].sum()
 total_profit = df["Profit"].sum()
 average_sales = df["Sales"].mean()
