@@ -50,7 +50,7 @@ Upload a CSV or Excel file and the app:
 
 ![Sales Forecast](screenshots/forecast.png)
 
-
+![What-if Simulator](screenshots/what_if.png)
 
 ## Limits (please read)
 - The forecast is a simple straight-line trend. It does not know about seasons, festivals or promotions, so use it as a guide, not a promise.
