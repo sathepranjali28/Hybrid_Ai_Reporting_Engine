@@ -65,6 +65,7 @@ Python, Streamlit, Pandas, NumPy, Plotly, python-docx, ReportLab
 - Src/engine_insights.py : dashboard, insights, "Why did sales change?"
 - Src/engine_predict.py : forecast, what-if simulator, anomaly detection
 - Data/sales_data.csv : sample dataset
+- Src/engine_actions.py : target vs actual, WhatsApp summary
 
 ## Run locally
     pip install -r requirements.txt
@@ -73,3 +74,14 @@ Python, Streamlit, Pandas, NumPy, Plotly, python-docx, ReportLab
 ## Sample data
 `Data/sales_data.csv` is a synthetic sample dataset (1,000 rows) generated for demonstration.
 Run `python make_data.py` to regenerate it. You can also upload your own CSV or Excel file in the app.
+
+## 🏪 Works With Your Own Shop Data
+- Column mapping: if your file uses names like "Bill Date" or "Amount", pick the right columns from dropdowns. No code change needed.
+- Reads amounts like ₹1,200 and dates written day first (DD/MM/YYYY).
+- Needs at least 4 complete months of dates and sales for the forecast.
+
+### 🎯 Target vs Actual
+Type a monthly sales target. The app shows how much is achieved, the sales needed per day to reach the target, and where the month is likely to end at the current pace.
+
+### 💬 WhatsApp Summary
+Creates a short summary of sales, profit, top product, weakest region, month change, forecast and target, in English, Marathi or Hindi. Copy it with one click and send it on WhatsApp.

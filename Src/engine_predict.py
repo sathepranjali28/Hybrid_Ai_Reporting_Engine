@@ -254,3 +254,4 @@ def show_anomaly(df, numeric_columns, product_col):
         )
     else:
         st.success("✅ No unusual values detected.")
+
