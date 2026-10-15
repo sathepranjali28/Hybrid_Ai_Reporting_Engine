@@ -5,12 +5,15 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+from engine_actions import show_summary, show_target
 from engine_helpers import (
     build_docx_report,
     build_pdf_report,
     find_col,
     fmt,
     health_check,
+    to_date,
+    to_number,
 )
 from engine_insights import show_insights, show_performance, show_why_changed
 from engine_predict import show_anomaly, show_forecast, show_whatif
@@ -71,12 +74,37 @@ df_raw.columns = df_raw.columns.astype(str).str.strip()
 all_cols = df_raw.columns.tolist()
 lookup = {col.lower(): col for col in all_cols}
 
-region_col = lookup.get("region")
-product_col = lookup.get("product")
-date_col = lookup.get("date")
+region_col = lookup.get("region") or find_col(all_cols, ["region"])
+product_col = lookup.get("product") or find_col(all_cols, ["product", "item"])
+date_col = lookup.get("date") or find_col(all_cols, ["date"])
 sales_col = find_col(all_cols, ["sales", "revenue"])
 profit_col = find_col(all_cols, ["profit"])
 quantity_col = find_col(all_cols, ["quantity", "qty"])
+
+# =============================================================
+# Column mapping (the user can fix a wrong guess)
+# =============================================================
+with st.expander("🧭 Column mapping: change it if the app picked the wrong column"):
+    st.caption(
+        "The app guesses which column is which. If your file uses other "
+        "names (for example 'Bill Date' or 'Amount'), choose them here."
+    )
+    pick_options = ["(none)"] + all_cols
+
+    def pick(label, current):
+        index = pick_options.index(current) if current in pick_options else 0
+        choice = st.selectbox(label, pick_options, index=index)
+        return None if choice == "(none)" else choice
+
+    date_col = pick("Date column", date_col)
+    sales_col = pick("Sales column", sales_col)
+    profit_col = pick("Profit column", profit_col)
+    quantity_col = pick("Quantity column", quantity_col)
+    product_col = pick("Product column", product_col)
+    region_col = pick("Region column", region_col)
+    day_first = st.checkbox(
+        "Dates are written day first (DD/MM/YYYY, for example 05/03/2026 = 5 March)"
+    )
 
 # =============================================================
 # Dataset Preview
@@ -90,7 +118,7 @@ st.dataframe(df_raw.head(10))
 st.subheader("🩺 Data Health Check")
 
 health_score, health_issues = health_check(
-    df_raw, sales_col, profit_col, quantity_col, date_col
+    df_raw, sales_col, profit_col, quantity_col, date_col, day_first
 )
 
 st.metric("Data Health Score", f"{health_score:.0f}%")
@@ -115,7 +143,7 @@ df_all = df_raw.copy()
 
 for col in [sales_col, profit_col, quantity_col]:
     if col:
-        df_all[col] = pd.to_numeric(df_all[col], errors="coerce")
+        df_all[col] = to_number(df_all[col])
 
 if sales_col and df_all[sales_col].notna().sum() == 0:
     sales_col = None
@@ -123,7 +151,7 @@ if profit_col and df_all[profit_col].notna().sum() == 0:
     profit_col = None
 
 if date_col:
-    df_all[date_col] = pd.to_datetime(df_all[date_col], errors="coerce")
+    df_all[date_col] = to_date(df_all[date_col], day_first)
     if df_all[date_col].notna().sum() == 0:
         date_col = None
 
@@ -316,6 +344,14 @@ whatif_result = show_whatif(
     sales_col, profit_col, total_sales, total_profit, profit_margin
 )
 
+target_result = show_target(df, date_col, sales_col)
+
 show_anomaly(df, numeric_columns, product_col)
+
+show_summary(
+    df, date_col, sales_col, product_col, region_col, product_table,
+    region_table, total_sales, total_profit, profit_margin,
+    forecast_result, target_result, health_score
+)
 
 st.success("🎉 Dashboard analysis completed!")

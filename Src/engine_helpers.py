@@ -23,7 +23,20 @@ def fmt(value):
     return f"{value:,.2f}"
 
 
-def health_check(data, sales, profit, quantity, date):
+def to_number(series):
+    """Convert to numbers; text like '₹1,200' or '$ 1,200' becomes 1200."""
+    if not pd.api.types.is_numeric_dtype(series):
+        cleaned = series.astype(str).str.replace(r"[₹$,\s]", "", regex=True)
+        series = cleaned.where(series.notna() & ~cleaned.isin(["", "nan", "None"]))
+    return pd.to_numeric(series, errors="coerce")
+
+
+def to_date(series, dayfirst=False):
+    """Convert to dates; dayfirst=True reads 05/03/2026 as 5 March."""
+    return pd.to_datetime(series, errors="coerce", dayfirst=dayfirst)
+
+
+def health_check(data, sales, profit, quantity, date, dayfirst=False):
     """Return (score, issues) describing the quality of the raw data."""
     total_rows = len(data)
     bad_rows = pd.Series(False, index=data.index)
@@ -38,14 +51,14 @@ def health_check(data, sales, profit, quantity, date):
 
     for col in [sales, profit, quantity]:
         if col:
-            converted = pd.to_numeric(data[col], errors="coerce")
+            converted = to_number(data[col])
             not_numeric |= converted.isna() & data[col].notna()
             if col != profit:  # negative profit (loss) is valid
                 negative |= converted < 0
 
     invalid_dates = pd.Series(False, index=data.index)
     if date:
-        parsed = pd.to_datetime(data[date], errors="coerce")
+        parsed = to_date(data[date], dayfirst)
         invalid_dates = parsed.isna() & data[date].notna()
 
     bad_rows |= not_numeric | negative | invalid_dates
