@@ -85,3 +85,5 @@ Type a monthly sales target. The app shows how much is achieved, the sales neede
 
 ### 💬 WhatsApp Summary
 Creates a short summary of sales, profit, top product, weakest region, month change, forecast and target, in English, Marathi or Hindi. Copy it with one click and send it on WhatsApp.
+
+![Tests](https://github.com/sathepranjali28/Hybrid_Ai_Reporting_Engine/actions/workflows/tests.yml/badge.svg)
