@@ -105,6 +105,10 @@ with st.expander("🧭 Column mapping: change it if the app picked the wrong col
     day_first = st.checkbox(
         "Dates are written day first (DD/MM/YYYY, for example 05/03/2026 = 5 March)"
     )
+tab_overview, tab_why, tab_forecast, tab_whatif, tab_reports = st.tabs(
+    ["📊 Overview", "🔎 Why Sales Changed", "🔮 Forecast", "🎛️ What-if & Target", "📝 Reports"]
+)
+
 
 # =============================================================
 # Dataset Preview
