@@ -34,7 +34,7 @@ st.write("Data Analytics Dashboard")
 # =============================================================
 st.subheader("Upload Your Dataset")
 
-uploaded_file = st.file_uploader(
+uploaded_file = st.sidebar.file_uploader(
     "Choose CSV or Excel file",
     type=["csv", "xlsx"]
 )
