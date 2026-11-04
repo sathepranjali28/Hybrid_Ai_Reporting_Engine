@@ -1,0 +1,901 @@
+Date,Product,Region,Quantity,Sales,Profit
+2026-03-01,Rice,Pune,10,12607,1250
+2026-03-01,Rice,Pune,4,5128,459
+2026-03-01,Soap,Solapur,8,2613,572
+2026-03-01,Soap,Satara,8,2605,725
+2026-03-02,Soap,Solapur,14,4892,1077
+2026-03-03,Tea,Pune,7,4558,604
+2026-03-03,Sugar,Pune,13,11496,583
+2026-03-03,Cooking Oil,Pune,12,21789,1775
+2026-03-03,Cooking Oil,Satara,8,15230,1858
+2026-03-04,Rice,Satara,8,9952,798
+2026-03-04,Biscuits,Pandharpur,6,2220,441
+2026-03-04,Biscuits,Satara,4,1605,361
+2026-03-04,Soap,Pune,8,2556,522
+2026-03-05,Soap,Solapur,13,4648,1494
+2026-03-05,Tea,Satara,4,2576,409
+2026-03-05,Soap,Pune,9,3042,547
+2026-03-06,Soap,Pandharpur,8,2836,515
+2026-03-06,Soap,Pandharpur,1,319,89
+2026-03-06,Rice,Pandharpur,4,4668,429
+2026-03-06,Biscuits,Solapur,12,4741,860
+2026-03-06,Soap,Satara,14,4688,1361
+2026-03-07,Biscuits,Pandharpur,9,3291,610
+2026-03-07,Cooking Oil,Pune,11,19494,1660
+2026-03-08,Sugar,Pandharpur,2,1700,124
+2026-03-08,Sugar,Satara,10,9682,762
+2026-03-09,Biscuits,Pune,13,5475,1426
+2026-03-09,Tea,Solapur,5,3295,477
+2026-03-10,Biscuits,Satara,11,4574,826
+2026-03-10,Rice,Solapur,11,14512,1503
+2026-03-10,Sugar,Pandharpur,14,13115,695
+2026-03-10,Soap,Pune,14,5368,1502
+2026-03-10,Biscuits,Pandharpur,9,3639,739
+2026-03-11,Rice,Pandharpur,2,2354,145
+2026-03-11,Soap,Pandharpur,3,986,305
+2026-03-11,Biscuits,Solapur,2,830,174
+2026-03-11,Sugar,Pandharpur,8,7873,655
+2026-03-11,Biscuits,Pune,3,1082,219
+2026-03-11,Cooking Oil,Satara,2,3729,368
+2026-03-12,Soap,Satara,6,2279,664
+2026-03-12,Cooking Oil,Solapur,7,12326,956
+2026-03-12,Cooking Oil,Satara,2,3526,351
+2026-03-13,Soap,Pandharpur,8,3053,589
+2026-03-13,Rice,Pandharpur,6,7379,560
+2026-03-13,Soap,Solapur,2,767,148
+2026-03-13,Soap,Solapur,8,2608,770
+2026-03-14,Sugar,Pune,13,12311,1021
+2026-03-14,Rice,Pune,2,2374,155
+2026-03-14,Tea,Satara,1,553,83
+2026-03-14,Biscuits,Solapur,11,4247,857
+2026-03-14,Cooking Oil,Solapur,4,6613,682
+2026-03-15,Rice,Solapur,8,9527,566
+2026-03-15,Rice,Pune,9,10373,692
+2026-03-15,Soap,Pandharpur,8,2626,620
+2026-03-15,Sugar,Pune,8,7100,425
+2026-03-15,Cooking Oil,Solapur,6,10382,1090
+2026-03-16,Biscuits,Pune,13,5362,1508
+2026-03-16,Biscuits,Pune,12,4578,727
+2026-03-17,Soap,Solapur,4,1457,424
+2026-03-17,Soap,Pandharpur,9,3228,653
+2026-03-18,Cooking Oil,Pune,11,18815,2383
+2026-03-18,Tea,Solapur,12,7027,1314
+2026-03-18,Biscuits,Pune,6,2407,628
+2026-03-18,Cooking Oil,Pandharpur,10,17038,1634
+2026-03-19,Cooking Oil,Pune,6,11678,1117
+2026-03-19,Tea,Pandharpur,7,4603,672
+2026-03-19,Biscuits,Pune,13,5494,1087
+2026-03-19,Cooking Oil,Solapur,9,17657,1893
+2026-03-20,Sugar,Satara,11,10641,943
+2026-03-21,Sugar,Solapur,3,2502,222
+2026-03-21,Cooking Oil,Solapur,6,11023,814
+2026-03-21,Cooking Oil,Pune,1,1724,156
+2026-03-21,Sugar,Pandharpur,13,11568,801
+2026-03-22,Tea,Solapur,8,4778,962
+2026-03-22,Tea,Solapur,12,7902,1136
+2026-03-22,Soap,Solapur,5,1791,350
+2026-03-22,Soap,Solapur,9,3256,860
+2026-03-23,Cooking Oil,Solapur,6,10145,993
+2026-03-23,Rice,Satara,6,7151,411
+2026-03-23,Cooking Oil,Solapur,14,24965,2070
+2026-03-24,Biscuits,Satara,11,4431,1166
+2026-03-24,Rice,Pune,4,5241,434
+2026-03-24,Tea,Pune,2,1240,174
+2026-03-24,Tea,Pune,9,4866,1029
+2026-03-25,Rice,Pune,8,8873,902
+2026-03-25,Soap,Pandharpur,6,2195,533
+2026-03-25,Cooking Oil,Solapur,4,7289,819
+2026-03-26,Tea,Pandharpur,10,5807,975
+2026-03-26,Cooking Oil,Solapur,6,11687,1354
+2026-03-26,Cooking Oil,Solapur,6,10345,985
+2026-03-26,Rice,Satara,8,9644,951
+2026-03-26,Soap,Satara,2,676,127
+2026-03-26,Soap,Solapur,14,4912,1207
+2026-03-27,Tea,Solapur,14,9176,2017
+2026-03-27,Rice,Pandharpur,10,10874,1130
+2026-03-27,Biscuits,Pandharpur,9,3266,703
+2026-03-27,Cooking Oil,Pandharpur,13,21695,2812
+2026-03-27,Rice,Satara,2,2576,185
+2026-03-27,Biscuits,Pune,4,1459,301
+2026-03-27,Biscuits,Pune,1,439,104
+2026-03-27,Tea,Pandharpur,1,646,88
+2026-03-27,Biscuits,Satara,5,2125,424
+2026-03-28,Biscuits,Pandharpur,7,3011,713
+2026-03-28,Soap,Solapur,14,5085,1632
+2026-03-28,Cooking Oil,Solapur,14,25242,1883
+2026-03-29,Cooking Oil,Satara,2,3900,379
+2026-03-29,Sugar,Solapur,3,2532,198
+2026-03-29,Cooking Oil,Satara,11,21315,1858
+2026-03-30,Cooking Oil,Pandharpur,7,11873,1468
+2026-03-30,Soap,Pune,9,3324,924
+2026-03-31,Rice,Pune,11,14080,1388
+2026-03-31,Rice,Pandharpur,2,2410,200
+2026-04-01,Cooking Oil,Satara,3,5129,444
+2026-04-01,Tea,Pandharpur,6,3439,611
+2026-04-01,Sugar,Solapur,4,3648,246
+2026-04-01,Tea,Solapur,11,6554,1220
+2026-04-02,Tea,Pandharpur,9,5005,631
+2026-04-02,Cooking Oil,Solapur,14,23023,2860
+2026-04-04,Tea,Satara,14,7911,1550
+2026-04-04,Rice,Solapur,12,13761,811
+2026-04-04,Biscuits,Satara,3,1256,279
+2026-04-05,Biscuits,Pune,4,1740,363
+2026-04-06,Cooking Oil,Solapur,2,3832,485
+2026-04-06,Sugar,Pandharpur,7,5782,409
+2026-04-06,Cooking Oil,Pandharpur,9,16885,1403
+2026-04-06,Biscuits,Pune,3,1087,183
+2026-04-06,Rice,Pandharpur,13,16735,1667
+2026-04-06,Tea,Satara,1,584,94
+2026-04-07,Soap,Satara,9,3041,589
+2026-04-07,Soap,Satara,5,1659,345
+2026-04-07,Soap,Pune,11,3674,844
+2026-04-07,Rice,Pune,8,10173,581
+2026-04-08,Tea,Satara,13,8189,1136
+2026-04-08,Cooking Oil,Pune,14,27521,3566
+2026-04-08,Tea,Pandharpur,4,2170,475
+2026-04-08,Biscuits,Satara,7,2839,513
+2026-04-08,Soap,Solapur,14,4760,1175
+2026-04-08,Cooking Oil,Pune,1,1695,194
+2026-04-08,Cooking Oil,Solapur,8,15547,1412
+2026-04-09,Cooking Oil,Pune,7,13529,1100
+2026-04-09,Biscuits,Pandharpur,7,2880,524
+2026-04-09,Rice,Satara,11,12748,842
+2026-04-10,Rice,Pune,2,2420,223
+2026-04-10,Rice,Pandharpur,11,13897,1296
+2026-04-10,Rice,Pandharpur,1,1093,102
+2026-04-11,Tea,Satara,9,5697,928
+2026-04-11,Biscuits,Pune,8,3445,872
+2026-04-11,Sugar,Pune,3,2474,210
+2026-04-11,Soap,Satara,9,3331,902
+2026-04-11,Biscuits,Pune,5,1934,474
+2026-04-12,Sugar,Pune,11,9189,624
+2026-04-12,Biscuits,Pandharpur,1,438,81
+2026-04-13,Cooking Oil,Solapur,4,7633,714
+2026-04-13,Rice,Satara,7,7617,714
+2026-04-13,Tea,Satara,13,7793,985
+2026-04-13,Rice,Pune,4,4330,440
+2026-04-14,Rice,Solapur,3,3399,342
+2026-04-14,Biscuits,Solapur,3,1136,308
+2026-04-14,Soap,Satara,8,2880,530
+2026-04-14,Rice,Pune,7,7929,719
+2026-04-14,Rice,Satara,3,3700,313
+2026-04-15,Tea,Solapur,8,5092,1143
+2026-04-15,Tea,Pandharpur,7,4447,1006
+2026-04-15,Rice,Solapur,5,5436,527
+2026-04-15,Tea,Pandharpur,9,5716,906
+2026-04-16,Cooking Oil,Pandharpur,9,15624,1586
+2026-04-16,Biscuits,Satara,7,2615,565
+2026-04-16,Rice,Pandharpur,8,9937,780
+2026-04-16,Soap,Pune,13,4620,817
+2026-04-16,Cooking Oil,Pune,5,8425,1009
+2026-04-17,Biscuits,Solapur,1,414,76
+2026-04-17,Biscuits,Solapur,4,1465,402
+2026-04-17,Biscuits,Satara,3,1140,210
+2026-04-17,Rice,Pune,5,5916,447
+2026-04-17,Tea,Satara,2,1266,181
+2026-04-18,Sugar,Pandharpur,7,6358,351
+2026-04-18,Tea,Pandharpur,1,650,106
+2026-04-19,Rice,Pandharpur,9,9870,819
+2026-04-19,Soap,Pune,13,5000,1098
+2026-04-19,Tea,Solapur,7,4371,725
+2026-04-19,Biscuits,Solapur,7,2944,833
+2026-04-19,Tea,Solapur,6,3517,556
+2026-04-19,Cooking Oil,Satara,6,10928,806
+2026-04-19,Rice,Solapur,12,14492,1095
+2026-04-19,Biscuits,Solapur,6,2539,583
+2026-04-20,Biscuits,Pandharpur,11,4155,912
+2026-04-20,Tea,Solapur,14,8169,1281
+2026-04-21,Cooking Oil,Satara,3,5228,618
+2026-04-21,Rice,Pune,4,5080,493
+2026-04-21,Soap,Satara,14,4843,1080
+2026-04-21,Sugar,Pune,3,2475,216
+2026-04-22,Cooking Oil,Pune,1,1631,142
+2026-04-23,Biscuits,Satara,5,1977,449
+2026-04-23,Rice,Pandharpur,4,5158,401
+2026-04-23,Tea,Solapur,8,4968,664
+2026-04-23,Soap,Pandharpur,13,4892,1180
+2026-04-24,Biscuits,Pune,13,5596,1211
+2026-04-24,Tea,Pandharpur,6,3540,772
+2026-04-24,Sugar,Pune,7,6784,595
+2026-04-24,Tea,Satara,2,1123,248
+2026-04-24,Soap,Pandharpur,13,4554,856
+2026-04-24,Sugar,Solapur,9,8103,466
+2026-04-25,Sugar,Satara,3,2763,169
+2026-04-25,Cooking Oil,Satara,14,24365,2146
+2026-04-25,Soap,Pune,1,337,60
+2026-04-25,Soap,Pandharpur,4,1512,294
+2026-04-25,Tea,Pandharpur,4,2229,453
+2026-04-26,Sugar,Solapur,9,8629,774
+2026-04-26,Sugar,Pandharpur,11,9360,815
+2026-04-26,Biscuits,Solapur,6,2382,458
+2026-04-26,Tea,Pune,14,8481,1557
+2026-04-27,Sugar,Pandharpur,2,1801,115
+2026-04-27,Cooking Oil,Pune,4,7156,815
+2026-04-27,Tea,Satara,4,2316,438
+2026-04-27,Tea,Satara,11,6467,819
+2026-04-28,Sugar,Pune,8,6564,555
+2026-04-28,Tea,Solapur,4,2531,375
+2026-04-28,Rice,Satara,13,14238,1291
+2026-04-29,Tea,Solapur,3,1921,442
+2026-04-29,Sugar,Pandharpur,11,9172,697
+2026-04-29,Soap,Satara,10,3246,950
+2026-04-29,Sugar,Solapur,3,2842,210
+2026-04-29,Tea,Solapur,7,4081,921
+2026-04-29,Tea,Pandharpur,7,4248,767
+2026-04-29,Rice,Pune,1,1258,90
+2026-05-01,Cooking Oil,Pune,3,5331,461
+2026-05-01,Cooking Oil,Solapur,7,12060,1525
+2026-05-01,Cooking Oil,Pune,1,1957,143
+2026-05-01,Rice,Satara,4,4782,370
+2026-05-01,Rice,Satara,8,9614,638
+2026-05-02,Soap,Satara,9,3414,1002
+2026-05-02,Tea,Pandharpur,7,4145,922
+2026-05-02,Cooking Oil,Pune,12,19670,1460
+2026-05-02,Cooking Oil,Satara,7,11937,1482
+2026-05-02,Sugar,Pune,5,4056,242
+2026-05-02,Cooking Oil,Solapur,6,10561,804
+2026-05-02,Soap,Solapur,13,4726,1305
+2026-05-03,Sugar,Pune,14,12599,693
+2026-05-03,Biscuits,Pandharpur,10,4377,819
+2026-05-03,Biscuits,Solapur,11,4723,1086
+2026-05-03,Sugar,Satara,11,10577,756
+2026-05-03,Cooking Oil,Pune,2,3594,346
+2026-05-03,Rice,Satara,11,13685,1417
+2026-05-04,Sugar,Pandharpur,9,7884,599
+2026-05-04,Cooking Oil,Solapur,7,13846,1311
+2026-05-05,Biscuits,Solapur,7,2720,733
+2026-05-05,Rice,Pune,11,12358,1174
+2026-05-05,Tea,Pandharpur,3,1977,417
+2026-05-05,Tea,Solapur,14,8259,1367
+2026-05-05,Sugar,Pune,1,929,78
+2026-05-05,Sugar,Solapur,4,3859,229
+2026-05-06,Cooking Oil,Pune,4,6773,671
+2026-05-06,Cooking Oil,Solapur,5,8856,999
+2026-05-06,Biscuits,Satara,2,847,230
+2026-05-07,Sugar,Pune,5,4660,228
+2026-05-07,Biscuits,Pune,12,4369,1143
+2026-05-07,Rice,Pandharpur,4,4885,358
+2026-05-07,Sugar,Pune,7,6272,393
+2026-05-08,Sugar,Solapur,11,10618,833
+2026-05-08,Sugar,Solapur,2,1724,150
+2026-05-09,Cooking Oil,Solapur,3,5090,608
+2026-05-09,Rice,Pune,14,15203,1022
+2026-05-09,Soap,Pune,6,1926,597
+2026-05-09,Sugar,Satara,3,2827,229
+2026-05-10,Tea,Pandharpur,5,2949,655
+2026-05-10,Soap,Solapur,9,2932,599
+2026-05-10,Cooking Oil,Pandharpur,13,23855,2765
+2026-05-10,Sugar,Solapur,9,7897,691
+2026-05-10,Tea,Satara,8,4496,810
+2026-05-12,Cooking Oil,Solapur,6,10169,1071
+2026-05-12,Sugar,Pandharpur,6,5007,357
+2026-05-12,Rice,Satara,4,4524,322
+2026-05-12,Cooking Oil,Solapur,14,22944,2478
+2026-05-13,Biscuits,Solapur,9,3328,627
+2026-05-13,Tea,Solapur,6,3514,542
+2026-05-13,Biscuits,Solapur,2,832,233
+2026-05-13,Rice,Satara,14,16242,1586
+2026-05-14,Cooking Oil,Solapur,14,25849,2674
+2026-05-14,Sugar,Pune,10,8408,726
+2026-05-14,Tea,Satara,1,564,75
+2026-05-14,Tea,Satara,9,4988,800
+2026-05-14,Rice,Pandharpur,3,3256,282
+2026-05-15,Rice,Solapur,11,14360,1039
+2026-05-15,Sugar,Pune,10,9140,650
+2026-05-16,Cooking Oil,Pune,14,23869,2258
+2026-05-16,Soap,Pandharpur,9,3462,783
+2026-05-17,Tea,Satara,1,633,107
+2026-05-17,Rice,Satara,3,3644,355
+2026-05-17,Biscuits,Solapur,14,5383,1224
+2026-05-18,Cooking Oil,Satara,3,5693,504
+2026-05-18,Sugar,Pandharpur,4,3322,257
+2026-05-18,Cooking Oil,Pandharpur,13,21227,1644
+2026-05-18,Cooking Oil,Satara,6,10123,1154
+2026-05-19,Sugar,Pune,2,1924,118
+2026-05-19,Biscuits,Pune,9,3599,564
+2026-05-20,Tea,Pandharpur,8,4810,1081
+2026-05-20,Soap,Pune,2,711,163
+2026-05-20,Tea,Pandharpur,14,7807,1662
+2026-05-21,Biscuits,Satara,12,5124,905
+2026-05-21,Soap,Pandharpur,9,3445,694
+2026-05-22,Rice,Pune,3,3281,231
+2026-05-22,Soap,Pune,13,4920,1114
+2026-05-23,Soap,Solapur,7,2483,559
+2026-05-23,Soap,Pandharpur,1,326,95
+2026-05-23,Tea,Solapur,6,3719,740
+2026-05-24,Rice,Pandharpur,3,3510,342
+2026-05-24,Soap,Satara,9,3245,942
+2026-05-24,Rice,Pune,7,8260,541
+2026-05-24,Soap,Solapur,12,4606,1307
+2026-05-25,Tea,Satara,12,7187,1031
+2026-05-25,Rice,Pandharpur,6,7269,412
+2026-05-26,Sugar,Solapur,4,3860,351
+2026-05-26,Tea,Solapur,14,8040,1247
+2026-05-26,Soap,Pune,11,3640,829
+2026-05-27,Biscuits,Satara,2,865,241
+2026-05-27,Rice,Solapur,4,4366,292
+2026-05-27,Biscuits,Pune,8,3029,629
+2026-05-28,Rice,Pune,11,13378,1212
+2026-05-28,Sugar,Pandharpur,5,4362,263
+2026-05-29,Soap,Satara,12,4617,1352
+2026-05-29,Tea,Satara,4,2317,410
+2026-05-29,Rice,Solapur,2,2477,229
+2026-05-29,Biscuits,Satara,6,2409,623
+2026-05-30,Cooking Oil,Satara,6,10903,893
+2026-05-30,Tea,Solapur,7,3980,746
+2026-05-30,Sugar,Solapur,8,7597,377
+2026-05-30,Tea,Pune,11,6129,1339
+2026-05-31,Tea,Pandharpur,11,6501,1347
+2026-05-31,Soap,Pandharpur,4,1310,352
+2026-05-31,Tea,Pune,4,2406,519
+2026-05-31,Sugar,Pandharpur,1,960,52
+2026-06-01,Rice,Pandharpur,9,11341,963
+2026-06-01,Rice,Satara,7,8489,674
+2026-06-01,Sugar,Pune,13,10949,605
+2026-06-01,Rice,Satara,6,6666,616
+2026-06-01,Sugar,Solapur,5,4320,253
+2026-06-01,Rice,Solapur,13,17089,1501
+2026-06-02,Sugar,Pune,2,1949,116
+2026-06-02,Sugar,Solapur,2,1815,124
+2026-06-03,Rice,Satara,5,5931,359
+2026-06-03,Rice,Pune,10,11087,739
+2026-06-03,Rice,Satara,13,16111,1325
+2026-06-04,Sugar,Pandharpur,8,6486,529
+2026-06-04,Soap,Solapur,1,359,85
+2026-06-04,Cooking Oil,Satara,2,3720,451
+2026-06-04,Cooking Oil,Pune,4,7657,567
+2026-06-04,Rice,Solapur,14,15820,1285
+2026-06-04,Biscuits,Solapur,6,2561,567
+2026-06-06,Sugar,Solapur,14,11906,745
+2026-06-06,Sugar,Pune,12,10488,612
+2026-06-06,Biscuits,Solapur,11,4275,875
+2026-06-06,Soap,Solapur,13,4130,954
+2026-06-07,Sugar,Satara,10,8543,544
+2026-06-08,Rice,Pune,2,2196,156
+2026-06-08,Biscuits,Solapur,12,4979,1348
+2026-06-08,Soap,Solapur,6,1943,400
+2026-06-08,Cooking Oil,Pune,3,5106,643
+2026-06-09,Biscuits,Satara,8,2934,465
+2026-06-09,Cooking Oil,Pune,7,12664,1258
+2026-06-09,Soap,Solapur,3,997,283
+2026-06-10,Biscuits,Satara,9,3268,554
+2026-06-11,Rice,Pune,7,7578,698
+2026-06-11,Sugar,Pandharpur,4,3296,173
+2026-06-11,Rice,Satara,8,9567,852
+2026-06-12,Sugar,Satara,8,7680,482
+2026-06-12,Rice,Satara,13,15580,1362
+2026-06-12,Biscuits,Satara,11,4144,796
+2026-06-12,Sugar,Pune,12,10914,664
+2026-06-12,Sugar,Satara,2,1800,163
+2026-06-13,Sugar,Pandharpur,12,11314,822
+2026-06-13,Rice,Pune,3,3444,198
+2026-06-13,Rice,Pandharpur,10,10891,1082
+2026-06-14,Sugar,Solapur,3,2870,214
+2026-06-14,Biscuits,Satara,3,1107,217
+2026-06-14,Cooking Oil,Pandharpur,3,5418,441
+2026-06-15,Rice,Solapur,14,15622,1480
+2026-06-15,Tea,Satara,1,617,82
+2026-06-15,Biscuits,Satara,3,1221,218
+2026-06-15,Sugar,Satara,1,968,85
+2026-06-15,Biscuits,Pandharpur,6,2421,490
+2026-06-16,Tea,Pune,5,3045,503
+2026-06-16,Sugar,Satara,14,11786,680
+2026-06-16,Sugar,Solapur,14,13819,1064
+2026-06-16,Soap,Satara,14,4479,1363
+2026-06-16,Sugar,Pune,13,12550,889
+2026-06-16,Soap,Pune,10,3596,994
+2026-06-16,Biscuits,Solapur,9,3246,669
+2026-06-16,Tea,Satara,11,6301,1441
+2026-06-17,Rice,Satara,12,13807,1367
+2026-06-17,Tea,Pandharpur,5,2996,410
+2026-06-17,Tea,Solapur,7,4168,930
+2026-06-17,Soap,Satara,4,1427,419
+2026-06-17,Rice,Pune,9,10007,905
+2026-06-17,Rice,Pandharpur,3,3651,269
+2026-06-17,Biscuits,Solapur,1,405,72
+2026-06-17,Rice,Satara,2,2325,196
+2026-06-18,Biscuits,Satara,9,3446,641
+2026-06-18,Biscuits,Pandharpur,10,4191,955
+2026-06-18,Tea,Satara,5,3138,717
+2026-06-19,Tea,Pandharpur,6,3747,550
+2026-06-19,Cooking Oil,Solapur,14,27479,2252
+2026-06-19,Rice,Pandharpur,12,13085,737
+2026-06-19,Sugar,Satara,14,12963,769
+2026-06-19,Cooking Oil,Pandharpur,8,15487,1688
+2026-06-19,Soap,Solapur,8,2716,663
+2026-06-19,Biscuits,Solapur,14,5810,1516
+2026-06-19,Sugar,Pune,2,1916,145
+2026-06-20,Cooking Oil,Pandharpur,6,11122,1233
+2026-06-20,Soap,Solapur,13,4839,1233
+2026-06-20,Soap,Pune,3,1089,331
+2026-06-20,Rice,Satara,14,15129,941
+2026-06-21,Tea,Satara,2,1225,179
+2026-06-22,Cooking Oil,Satara,14,26607,2357
+2026-06-22,Rice,Pune,7,8579,692
+2026-06-23,Cooking Oil,Pune,13,24487,2211
+2026-06-23,Rice,Pune,9,10503,671
+2026-06-23,Soap,Pandharpur,1,333,75
+2026-06-23,Tea,Solapur,5,2838,389
+2026-06-23,Biscuits,Satara,3,1160,245
+2026-06-24,Biscuits,Pandharpur,14,5645,998
+2026-06-24,Rice,Solapur,6,7870,469
+2026-06-24,Biscuits,Solapur,3,1295,284
+2026-06-24,Sugar,Satara,9,8149,652
+2026-06-24,Biscuits,Pandharpur,7,2873,706
+2026-06-24,Tea,Satara,1,542,78
+2026-06-25,Soap,Satara,6,1943,387
+2026-06-25,Cooking Oil,Satara,13,23980,2432
+2026-06-25,Tea,Pune,4,2517,547
+2026-06-25,Sugar,Solapur,14,11462,599
+2026-06-25,Soap,Pandharpur,4,1326,407
+2026-06-26,Tea,Pune,9,5627,894
+2026-06-26,Biscuits,Pune,14,5694,1225
+2026-06-26,Sugar,Pandharpur,5,4625,412
+2026-06-26,Tea,Solapur,1,549,97
+2026-06-27,Rice,Satara,3,3370,295
+2026-06-27,Rice,Pandharpur,14,15411,1582
+2026-06-27,Tea,Solapur,6,3769,573
+2026-06-27,Rice,Pandharpur,6,7290,718
+2026-06-27,Sugar,Satara,2,1717,129
+2026-06-28,Sugar,Pandharpur,12,10990,956
+2026-06-28,Tea,Solapur,4,2519,534
+2026-06-28,Cooking Oil,Solapur,1,1806,150
+2026-06-29,Biscuits,Solapur,13,5194,1436
+2026-06-29,Rice,Pune,8,8780,661
+2026-06-29,Soap,Solapur,5,1878,604
+2026-06-29,Cooking Oil,Pune,5,8557,742
+2026-06-29,Rice,Solapur,6,7327,446
+2026-06-29,Tea,Pandharpur,7,4279,936
+2026-06-29,Cooking Oil,Pune,12,20123,2143
+2026-06-30,Tea,Solapur,4,2262,333
+2026-06-30,Cooking Oil,Satara,3,5017,616
+2026-07-01,Sugar,Pune,13,12204,718
+2026-07-01,Rice,Satara,5,6202,633
+2026-07-01,Soap,Pandharpur,7,2313,656
+2026-07-01,Rice,Satara,8,9883,630
+2026-07-02,Biscuits,Pune,5,1995,551
+2026-07-02,Biscuits,Pune,6,2521,662
+2026-07-03,Cooking Oil,Solapur,7,13705,1087
+2026-07-03,Sugar,Solapur,8,7266,506
+2026-07-03,Soap,Pandharpur,13,4532,984
+2026-07-03,Soap,Solapur,2,667,173
+2026-07-03,Biscuits,Pune,5,1951,493
+2026-07-04,Biscuits,Pandharpur,8,2943,552
+2026-07-05,Cooking Oil,Pune,6,11606,1188
+2026-07-05,Sugar,Solapur,6,5769,445
+2026-07-05,Tea,Pandharpur,14,9120,1282
+2026-07-05,Cooking Oil,Pandharpur,10,17717,1313
+2026-07-06,Tea,Pune,12,6846,1378
+2026-07-06,Sugar,Pune,8,7227,402
+2026-07-06,Soap,Satara,2,631,123
+2026-07-06,Soap,Pandharpur,7,2542,467
+2026-07-06,Sugar,Satara,12,9741,497
+2026-07-06,Biscuits,Pandharpur,5,1999,522
+2026-07-06,Rice,Solapur,8,8768,768
+2026-07-07,Tea,Pandharpur,13,7519,1311
+2026-07-07,Biscuits,Pune,7,2904,568
+2026-07-07,Biscuits,Solapur,9,3832,948
+2026-07-07,Tea,Pandharpur,9,5861,812
+2026-07-09,Rice,Pune,12,13411,1223
+2026-07-09,Tea,Pandharpur,2,1216,278
+2026-07-09,Soap,Pandharpur,6,2180,693
+2026-07-09,Soap,Satara,11,3484,696
+2026-07-10,Biscuits,Solapur,4,1598,412
+2026-07-10,Biscuits,Pandharpur,10,3629,634
+2026-07-10,Soap,Pandharpur,1,384,95
+2026-07-10,Biscuits,Satara,2,820,163
+2026-07-10,Tea,Pune,12,6986,1600
+2026-07-11,Soap,Pandharpur,12,4108,1149
+2026-07-11,Biscuits,Pune,11,4011,995
+2026-07-11,Rice,Pune,11,13847,816
+2026-07-12,Soap,Satara,4,1525,437
+2026-07-12,Sugar,Pandharpur,3,2760,179
+2026-07-12,Tea,Satara,11,6470,1278
+2026-07-12,Cooking Oil,Solapur,8,15055,1642
+2026-07-12,Rice,Pandharpur,14,15514,1430
+2026-07-12,Cooking Oil,Solapur,6,10865,1061
+2026-07-13,Tea,Satara,3,1639,252
+2026-07-13,Soap,Pune,4,1477,428
+2026-07-13,Tea,Satara,4,2305,510
+2026-07-14,Tea,Pandharpur,9,5453,713
+2026-07-14,Cooking Oil,Pandharpur,14,24499,2183
+2026-07-14,Rice,Pune,13,14635,872
+2026-07-15,Tea,Pandharpur,5,2966,530
+2026-07-15,Tea,Pune,11,6335,1054
+2026-07-15,Tea,Pandharpur,12,7413,1337
+2026-07-15,Biscuits,Pandharpur,14,5995,1330
+2026-07-15,Sugar,Solapur,3,2722,212
+2026-07-16,Sugar,Pandharpur,4,3316,279
+2026-07-16,Tea,Solapur,10,5848,862
+2026-07-16,Rice,Pune,5,5895,505
+2026-07-17,Rice,Solapur,5,5560,545
+2026-07-17,Sugar,Satara,13,11141,966
+2026-07-17,Biscuits,Pune,3,1182,256
+2026-07-18,Tea,Pune,14,7844,1033
+2026-07-19,Sugar,Satara,4,3280,248
+2026-07-19,Biscuits,Satara,6,2312,360
+2026-07-20,Sugar,Satara,10,9263,563
+2026-07-20,Soap,Pune,14,5328,1691
+2026-07-21,Sugar,Pandharpur,11,10335,938
+2026-07-21,Soap,Solapur,10,3278,695
+2026-07-21,Cooking Oil,Satara,12,21345,2551
+2026-07-21,Cooking Oil,Pune,6,10955,934
+2026-07-21,Soap,Solapur,10,3336,889
+2026-07-21,Soap,Satara,14,5213,995
+2026-07-22,Soap,Pandharpur,3,1111,262
+2026-07-23,Biscuits,Solapur,9,3349,531
+2026-07-23,Sugar,Pandharpur,10,8601,782
+2026-07-23,Tea,Pune,1,638,142
+2026-07-23,Sugar,Pune,3,2782,194
+2026-07-23,Rice,Solapur,3,3874,234
+2026-07-23,Biscuits,Solapur,9,3840,825
+2026-07-23,Rice,Pandharpur,12,15577,1556
+2026-07-24,Rice,Pandharpur,10,12239,709
+2026-07-24,Sugar,Solapur,8,7590,556
+2026-07-24,Cooking Oil,Satara,14,27390,2680
+2026-07-24,Soap,Pandharpur,2,633,198
+2026-07-25,Rice,Satara,3,3355,288
+2026-07-25,Soap,Satara,9,2971,670
+2026-07-25,Soap,Pandharpur,1,323,84
+2026-07-25,Tea,Pandharpur,12,6568,1468
+2026-07-26,Sugar,Pandharpur,5,4490,310
+2026-07-26,Tea,Pune,8,5217,1043
+2026-07-26,Rice,Pandharpur,5,5885,559
+2026-07-26,Rice,Solapur,11,14064,1152
+2026-07-26,Cooking Oil,Pandharpur,5,8711,1053
+2026-07-27,Cooking Oil,Pandharpur,5,8508,819
+2026-07-27,Biscuits,Pandharpur,2,752,131
+2026-07-28,Sugar,Pune,5,4110,280
+2026-07-28,Soap,Satara,6,2282,665
+2026-07-28,Tea,Satara,9,5484,834
+2026-07-28,Soap,Pune,11,3733,756
+2026-07-29,Rice,Pune,12,13233,1138
+2026-07-29,Rice,Pandharpur,3,3368,313
+2026-07-29,Cooking Oil,Satara,3,5935,650
+2026-07-29,Sugar,Pandharpur,9,8185,414
+2026-07-29,Rice,Pune,5,6337,611
+2026-07-29,Biscuits,Solapur,13,5456,1287
+2026-07-30,Soap,Pandharpur,6,1991,494
+2026-07-30,Rice,Solapur,5,6382,650
+2026-07-30,Tea,Satara,5,3253,553
+2026-07-30,Soap,Pune,6,2177,419
+2026-07-30,Sugar,Pandharpur,5,4747,353
+2026-07-31,Biscuits,Solapur,14,5823,1228
+2026-07-31,Soap,Pandharpur,1,324,76
+2026-07-31,Soap,Solapur,12,3956,701
+2026-07-31,Cooking Oil,Solapur,1,1747,158
+2026-07-31,Soap,Pandharpur,3,1089,300
+2026-07-31,Rice,Solapur,2,2573,256
+2026-08-01,Rice,Satara,14,17396,1172
+2026-08-01,Soap,Satara,10,3726,876
+2026-08-02,Tea,Solapur,5,3067,636
+2026-08-02,Rice,Pune,14,17156,1588
+2026-08-02,Cooking Oil,Satara,10,17463,2064
+2026-08-02,Biscuits,Pandharpur,8,2924,736
+2026-08-02,Tea,Solapur,14,7568,1174
+2026-08-03,Cooking Oil,Pune,11,20351,1986
+2026-08-03,Tea,Pandharpur,4,2437,521
+2026-08-04,Soap,Satara,3,957,275
+2026-08-04,Tea,Pandharpur,11,6615,1258
+2026-08-04,Rice,Solapur,2,2295,157
+2026-08-05,Sugar,Solapur,9,7499,673
+2026-08-05,Sugar,Pandharpur,3,2934,155
+2026-08-05,Rice,Solapur,8,10496,924
+2026-08-05,Sugar,Satara,5,4138,215
+2026-08-05,Cooking Oil,Solapur,5,8425,661
+2026-08-05,Tea,Pune,6,3849,703
+2026-08-06,Cooking Oil,Solapur,3,5359,492
+2026-08-06,Tea,Pune,13,7117,1505
+2026-08-06,Sugar,Pandharpur,12,10224,772
+2026-08-08,Biscuits,Solapur,13,4801,1280
+2026-08-08,Sugar,Solapur,12,11094,566
+2026-08-08,Soap,Solapur,14,4849,910
+2026-08-08,Tea,Pune,6,3241,745
+2026-08-08,Cooking Oil,Pandharpur,14,25010,2213
+2026-08-08,Soap,Satara,10,3611,840
+2026-08-09,Biscuits,Pune,1,369,82
+2026-08-10,Cooking Oil,Satara,13,24043,2304
+2026-08-11,Tea,Solapur,5,2841,571
+2026-08-11,Rice,Solapur,7,7783,741
+2026-08-11,Sugar,Satara,2,1917,110
+2026-08-11,Rice,Solapur,6,6939,448
+2026-08-11,Rice,Satara,3,3456,311
+2026-08-11,Rice,Pandharpur,4,5151,520
+2026-08-11,Tea,Pandharpur,3,1945,377
+2026-08-12,Rice,Pandharpur,11,13567,923
+2026-08-12,Tea,Pune,13,8054,1214
+2026-08-12,Rice,Pandharpur,7,8470,744
+2026-08-12,Soap,Pune,3,1039,326
+2026-08-13,Cooking Oil,Pandharpur,3,5511,626
+2026-08-13,Sugar,Solapur,3,2459,212
+2026-08-13,Rice,Solapur,12,14941,1448
+2026-08-13,Sugar,Pandharpur,13,12771,870
+2026-08-13,Cooking Oil,Satara,14,27455,2018
+2026-08-14,Cooking Oil,Pune,11,19327,1822
+2026-08-14,Sugar,Solapur,14,12193,1087
+2026-08-14,Sugar,Pune,9,7439,566
+2026-08-15,Cooking Oil,Solapur,3,4864,412
+2026-08-15,Cooking Oil,Satara,12,23497,2681
+2026-08-16,Rice,Solapur,8,9339,786
+2026-08-16,Rice,Solapur,11,12939,1121
+2026-08-16,Tea,Pandharpur,12,7224,1445
+2026-08-16,Cooking Oil,Pune,4,6515,732
+2026-08-16,Sugar,Satara,4,3291,193
+2026-08-16,Cooking Oil,Satara,14,26772,3186
+2026-08-16,Sugar,Satara,3,2696,143
+2026-08-16,Cooking Oil,Satara,8,14134,1801
+2026-08-17,Tea,Pune,11,6019,1238
+2026-08-17,Cooking Oil,Solapur,6,10798,1214
+2026-08-17,Tea,Solapur,1,559,115
+2026-08-18,Biscuits,Pandharpur,14,5307,1320
+2026-08-18,Soap,Pune,4,1498,337
+2026-08-18,Biscuits,Pandharpur,1,386,100
+2026-08-19,Rice,Pandharpur,7,7637,542
+2026-08-19,Rice,Solapur,5,6266,438
+2026-08-20,Rice,Pandharpur,4,4381,301
+2026-08-21,Biscuits,Satara,4,1617,348
+2026-08-21,Biscuits,Pune,12,4948,1191
+2026-08-22,Sugar,Pandharpur,1,848,55
+2026-08-22,Cooking Oil,Satara,7,13143,1659
+2026-08-22,Soap,Satara,5,1598,444
+2026-08-22,Tea,Pune,7,4542,908
+2026-08-23,Sugar,Solapur,7,6156,445
+2026-08-23,Tea,Pandharpur,2,1113,183
+2026-08-24,Tea,Pandharpur,6,3603,804
+2026-08-24,Biscuits,Solapur,2,845,145
+2026-08-24,Biscuits,Solapur,6,2323,653
+2026-08-24,Rice,Pandharpur,2,2557,226
+2026-08-25,Biscuits,Satara,5,2058,489
+2026-08-25,Rice,Pune,14,16534,1521
+2026-08-25,Sugar,Solapur,2,1643,109
+2026-08-25,Tea,Pandharpur,13,8217,1753
+2026-08-25,Sugar,Pune,3,2623,141
+2026-08-26,Biscuits,Pandharpur,1,407,93
+2026-08-26,Rice,Pune,12,13967,1449
+2026-08-26,Biscuits,Pune,4,1686,290
+2026-08-27,Sugar,Pune,14,11926,880
+2026-08-27,Biscuits,Pune,14,5922,1674
+2026-08-27,Rice,Pandharpur,3,3921,249
+2026-08-27,Tea,Solapur,9,5005,1107
+2026-08-27,Tea,Solapur,1,609,101
+2026-08-28,Biscuits,Solapur,4,1577,264
+2026-08-28,Biscuits,Satara,6,2198,382
+2026-08-28,Tea,Pandharpur,11,5951,1186
+2026-08-29,Biscuits,Pune,4,1657,275
+2026-08-29,Sugar,Solapur,5,4311,389
+2026-08-29,Biscuits,Satara,13,5353,1166
+2026-08-30,Tea,Satara,14,7784,1417
+2026-08-30,Cooking Oil,Solapur,4,6881,539
+2026-08-30,Tea,Pune,11,6507,1295
+2026-08-30,Tea,Pune,13,7208,1431
+2026-08-31,Sugar,Satara,8,7394,458
+2026-08-31,Rice,Pune,13,16737,1589
+2026-08-31,Rice,Pandharpur,11,14193,870
+2026-08-31,Sugar,Pandharpur,9,8560,583
+2026-09-01,Tea,Pandharpur,6,3348,598
+2026-09-01,Tea,Pune,5,3023,414
+2026-09-01,Cooking Oil,Solapur,4,7438,873
+2026-09-03,Biscuits,Solapur,4,1740,314
+2026-09-03,Rice,Pandharpur,6,6514,436
+2026-09-04,Cooking Oil,Pandharpur,12,21987,2675
+2026-09-04,Biscuits,Solapur,14,5062,931
+2026-09-04,Biscuits,Solapur,10,4327,931
+2026-09-05,Tea,Solapur,12,6971,1396
+2026-09-05,Sugar,Pune,13,12604,837
+2026-09-05,Soap,Satara,3,1114,281
+2026-09-06,Cooking Oil,Pandharpur,11,18149,2175
+2026-09-06,Soap,Pandharpur,6,2113,449
+2026-09-06,Biscuits,Pune,8,3325,603
+2026-09-06,Tea,Pune,10,5876,990
+2026-09-06,Biscuits,Pandharpur,14,5811,1186
+2026-09-07,Rice,Solapur,1,1220,109
+2026-09-07,Soap,Satara,1,353,102
+2026-09-07,Biscuits,Satara,7,2641,721
+2026-09-07,Soap,Pune,9,3113,817
+2026-09-07,Biscuits,Pune,13,5497,1418
+2026-09-07,Cooking Oil,Solapur,8,14237,1454
+2026-09-08,Soap,Pandharpur,12,3906,964
+2026-09-08,Rice,Satara,2,2582,267
+2026-09-08,Rice,Solapur,14,15628,1140
+2026-09-08,Biscuits,Pune,5,1915,542
+2026-09-08,Rice,Pune,13,14772,829
+2026-09-09,Rice,Pandharpur,8,9888,677
+2026-09-10,Biscuits,Solapur,1,361,75
+2026-09-10,Soap,Satara,11,3609,1102
+2026-09-10,Cooking Oil,Pandharpur,14,23858,2886
+2026-09-10,Biscuits,Pune,2,809,224
+2026-09-10,Rice,Satara,13,15188,1531
+2026-09-10,Soap,Pune,9,2977,755
+2026-09-11,Sugar,Solapur,5,4771,396
+2026-09-11,Tea,Solapur,4,2448,356
+2026-09-11,Sugar,Solapur,10,8522,452
+2026-09-12,Sugar,Solapur,14,12425,974
+2026-09-12,Rice,Pune,3,3343,300
+2026-09-13,Biscuits,Pune,10,3823,706
+2026-09-13,Cooking Oil,Solapur,12,23302,2588
+2026-09-13,Sugar,Pune,5,4397,381
+2026-09-13,Sugar,Solapur,14,12263,953
+2026-09-14,Soap,Satara,5,1729,341
+2026-09-14,Tea,Satara,13,8449,1368
+2026-09-15,Sugar,Satara,11,9946,801
+2026-09-15,Biscuits,Pandharpur,10,3896,641
+2026-09-15,Sugar,Satara,6,5333,326
+2026-09-15,Rice,Solapur,7,8828,665
+2026-09-15,Cooking Oil,Satara,7,11755,1407
+2026-09-15,Rice,Satara,12,13292,848
+2026-09-16,Rice,Satara,14,16530,996
+2026-09-16,Cooking Oil,Pandharpur,14,26265,3022
+2026-09-16,Tea,Satara,8,5185,792
+2026-09-16,Tea,Pune,5,3146,525
+2026-09-17,Tea,Solapur,9,5864,807
+2026-09-17,Tea,Pune,2,1310,277
+2026-09-17,Sugar,Solapur,3,2802,167
+2026-09-17,Sugar,Solapur,14,13299,758
+2026-09-17,Rice,Pune,2,2607,170
+2026-09-18,Rice,Satara,10,11114,675
+2026-09-18,Soap,Pune,2,738,175
+2026-09-18,Tea,Satara,10,6514,1425
+2026-09-18,Soap,Pandharpur,10,3491,849
+2026-09-18,Tea,Solapur,1,601,76
+2026-09-18,Tea,Pandharpur,2,1152,195
+2026-09-18,Biscuits,Pune,9,3928,669
+2026-09-19,Cooking Oil,Satara,11,19745,2475
+2026-09-19,Biscuits,Solapur,2,831,197
+2026-09-19,Biscuits,Pune,7,3056,549
+2026-09-19,Sugar,Pune,10,8595,570
+2026-09-19,Rice,Satara,5,6191,622
+2026-09-19,Cooking Oil,Solapur,1,1875,236
+2026-09-19,Rice,Pandharpur,4,5100,453
+2026-09-20,Tea,Pandharpur,8,4447,953
+2026-09-20,Sugar,Pandharpur,1,947,61
+2026-09-20,Soap,Pune,10,3576,991
+2026-09-20,Soap,Pune,1,384,80
+2026-09-21,Sugar,Pandharpur,9,8756,713
+2026-09-21,Soap,Pandharpur,1,351,108
+2026-09-21,Cooking Oil,Solapur,2,3426,437
+2026-09-22,Sugar,Solapur,7,5918,307
+2026-09-22,Rice,Pune,10,12925,1322
+2026-09-22,Cooking Oil,Solapur,14,25755,2226
+2026-09-22,Rice,Pune,5,5963,590
+2026-09-23,Rice,Solapur,8,10348,894
+2026-09-23,Biscuits,Satara,14,5952,1240
+2026-09-23,Soap,Pune,8,2717,605
+2026-09-23,Cooking Oil,Satara,2,3578,339
+2026-09-23,Tea,Pandharpur,11,6862,1562
+2026-09-24,Cooking Oil,Solapur,3,5704,467
+2026-09-24,Rice,Solapur,12,13167,1082
+2026-09-24,Rice,Satara,11,13844,1145
+2026-09-24,Cooking Oil,Satara,11,21772,2096
+2026-09-25,Sugar,Pune,7,6023,308
+2026-09-25,Soap,Pune,1,353,74
+2026-09-25,Biscuits,Solapur,11,4632,1275
+2026-09-27,Cooking Oil,Pune,9,14765,1646
+2026-09-27,Soap,Solapur,5,1617,307
+2026-09-27,Biscuits,Solapur,11,4372,795
+2026-09-28,Biscuits,Pandharpur,6,2295,553
+2026-09-28,Soap,Solapur,7,2448,791
+2026-09-28,Cooking Oil,Pune,6,10040,962
+2026-09-28,Cooking Oil,Solapur,5,8942,907
+2026-09-28,Rice,Solapur,12,13427,1204
+2026-09-28,Cooking Oil,Solapur,7,12663,1156
+2026-09-29,Sugar,Solapur,10,9227,557
+2026-09-29,Soap,Satara,14,4517,1199
+2026-09-29,Biscuits,Pandharpur,2,861,214
+2026-09-29,Biscuits,Satara,7,2809,468
+2026-09-30,Biscuits,Pandharpur,7,2981,659
+2026-09-30,Soap,Satara,7,2635,799
+2026-09-30,Biscuits,Solapur,1,414,107
+2026-10-01,Tea,Pandharpur,10,5508,1198
+2026-10-01,Biscuits,Solapur,8,3455,609
+2026-10-01,Soap,Satara,14,4941,1490
+2026-10-01,Tea,Solapur,3,1681,237
+2026-10-02,Rice,Pune,12,15276,869
+2026-10-02,Tea,Pune,10,6269,1146
+2026-10-02,Soap,Solapur,6,1897,581
+2026-10-02,Tea,Pune,9,5580,1019
+2026-10-02,Rice,Pandharpur,4,4359,436
+2026-10-02,Rice,Solapur,11,12097,1188
+2026-10-03,Biscuits,Satara,1,413,65
+2026-10-04,Biscuits,Pune,1,390,104
+2026-10-04,Sugar,Pune,4,3865,252
+2026-10-04,Cooking Oil,Pandharpur,3,5250,534
+2026-10-04,Soap,Satara,8,2925,719
+2026-10-04,Soap,Satara,6,1975,576
+2026-10-04,Soap,Pune,6,2214,588
+2026-10-05,Soap,Satara,9,3380,893
+2026-10-05,Soap,Pune,11,3984,1039
+2026-10-05,Biscuits,Satara,7,2817,459
+2026-10-06,Biscuits,Pandharpur,2,765,190
+2026-10-06,Rice,Pandharpur,5,5646,554
+2026-10-07,Cooking Oil,Solapur,6,11792,1024
+2026-10-07,Soap,Solapur,8,2915,887
+2026-10-08,Sugar,Satara,2,1757,135
+2026-10-08,Tea,Pune,13,7703,1771
+2026-10-08,Tea,Pandharpur,13,7637,1268
+2026-10-08,Sugar,Satara,1,940,59
+2026-10-08,Soap,Satara,5,1793,401
+2026-10-08,Tea,Satara,4,2324,475
+2026-10-09,Biscuits,Satara,10,3706,881
+2026-10-10,Tea,Solapur,7,4324,568
+2026-10-10,Tea,Satara,2,1206,160
+2026-10-10,Sugar,Pune,11,10285,652
+2026-10-11,Sugar,Solapur,1,843,52
+2026-10-11,Tea,Satara,11,6658,1460
+2026-10-11,Soap,Pandharpur,3,994,228
+2026-10-11,Tea,Solapur,13,8305,1817
+2026-10-11,Cooking Oil,Pandharpur,2,3410,331
+2026-10-12,Biscuits,Solapur,4,1694,288
+2026-10-12,Sugar,Satara,14,11462,725
+2026-10-12,Biscuits,Solapur,13,5211,1097
+2026-10-12,Tea,Pune,13,7126,1452
+2026-10-12,Soap,Satara,4,1391,322
+2026-10-13,Rice,Pune,14,17732,1774
+2026-10-13,Tea,Satara,13,7386,940
+2026-10-13,Biscuits,Solapur,7,2654,604
+2026-10-14,Rice,Solapur,6,7501,534
+2026-10-14,Sugar,Satara,5,4364,369
+2026-10-15,Tea,Satara,14,7594,1664
+2026-10-15,Cooking Oil,Solapur,4,6790,651
+2026-10-16,Rice,Satara,6,7417,421
+2026-10-17,Biscuits,Pandharpur,11,4016,1073
+2026-10-17,Biscuits,Satara,12,4429,950
+2026-10-17,Soap,Satara,1,338,76
+2026-10-17,Sugar,Pandharpur,9,8643,548
+2026-10-18,Tea,Pandharpur,7,3909,697
+2026-10-18,Cooking Oil,Solapur,6,10576,782
+2026-10-18,Rice,Solapur,1,1286,101
+2026-10-19,Biscuits,Pune,1,376,103
+2026-10-19,Sugar,Satara,12,11207,688
+2026-10-19,Sugar,Solapur,10,9501,642
+2026-10-20,Soap,Solapur,5,1663,408
+2026-10-20,Soap,Solapur,6,2277,722
+2026-10-20,Tea,Solapur,9,4969,756
+2026-10-21,Soap,Pune,6,2215,463
+2026-10-21,Rice,Solapur,4,5064,488
+2026-10-21,Cooking Oil,Solapur,7,11792,1366
+2026-10-21,Tea,Pandharpur,13,7970,1772
+2026-10-21,Sugar,Satara,11,10576,577
+2026-10-21,Sugar,Pune,10,8324,462
+2026-10-21,Rice,Solapur,2,2288,203
+2026-10-21,Soap,Solapur,13,4158,1182
+2026-10-21,Biscuits,Pune,1,394,103
+2026-10-22,Soap,Satara,1,322,65
+2026-10-22,Sugar,Pandharpur,4,3491,269
+2026-10-22,Cooking Oil,Satara,4,7355,840
+2026-10-22,Sugar,Satara,8,7909,414
+2026-10-22,Tea,Solapur,9,5006,703
+2026-10-22,Soap,Pune,9,3212,827
+2026-10-23,Cooking Oil,Solapur,1,1746,200
+2026-10-23,Tea,Solapur,10,6288,979
+2026-10-23,Sugar,Pandharpur,14,12430,917
+2026-10-24,Tea,Pandharpur,7,4218,899
+2026-10-24,Sugar,Pune,13,11137,584
+2026-10-24,Sugar,Pune,14,13262,1074
+2026-10-24,Sugar,Solapur,1,909,77
+2026-10-24,Cooking Oil,Solapur,3,5002,378
+2026-10-24,Biscuits,Solapur,8,3437,717
+2026-10-25,Soap,Solapur,6,2285,687
+2026-10-25,Sugar,Satara,7,6856,578
+2026-10-25,Sugar,Satara,10,9378,547
+2026-10-25,Cooking Oil,Satara,10,19401,2465
+2026-10-25,Soap,Pandharpur,8,2536,611
+2026-10-26,Soap,Pune,8,2637,644
+2026-10-26,Cooking Oil,Satara,6,11281,1299
+2026-10-26,Tea,Satara,4,2162,462
+2026-10-26,Soap,Satara,8,2976,574
+2026-10-26,Cooking Oil,Pandharpur,11,21070,2573
+2026-10-27,Soap,Pune,12,4037,784
+2026-10-27,Biscuits,Solapur,13,4912,875
+2026-10-28,Soap,Solapur,6,2245,402
+2026-10-28,Cooking Oil,Solapur,7,13042,1037
+2026-10-28,Tea,Pandharpur,14,8074,1527
+2026-10-29,Soap,Satara,10,3275,627
+2026-10-29,Biscuits,Pandharpur,7,3004,519
+2026-10-29,Cooking Oil,Solapur,8,14372,1104
+2026-10-29,Biscuits,Solapur,10,3913,1063
+2026-10-29,Sugar,Pune,6,5725,316
+2026-10-30,Tea,Pune,11,6024,1280
+2026-10-30,Cooking Oil,Satara,8,14069,1757
+2026-10-30,Cooking Oil,Pune,1,1844,136
+2026-10-30,Cooking Oil,Pune,2,3917,349
+2026-10-30,Cooking Oil,Satara,13,21594,2090
