@@ -26,11 +26,21 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("📊 Hybrid Data Analytics & AI Reporting Engine")
-st.write("Data Analytics Dashboard")
+st.markdown(
+    """
+    <div style="background: linear-gradient(90deg, #0F2A47, #14B8A6);
+                padding: 18px 22px; border-radius: 12px; margin-bottom: 12px;">
+        <h2 style="color: white; margin: 0;">📊 Hybrid Data Analytics &amp; AI Reporting Engine</h2>
+        <p style="color: #E2E8F0; margin: 4px 0 0 0;">
+            Upload sales data → clean → analyse → forecast → report
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 # =============================================================
-# Upload / Load dataset
+# Upload / Load dataget
 # =============================================================
 st.subheader("Upload Your Dataset")
 
