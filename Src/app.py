@@ -44,25 +44,30 @@ st.markdown(
 # =============================================================
 st.subheader("Upload Your Dataset")
 
-uploaded_file = st.sidebar.file_uploader(
-    "Choose CSV or Excel file",
-    type=["csv", "xlsx"]
+uploaded_files = st.sidebar.file_uploader(
+    "Choose CSV or Excel files",
+    type=["csv", "xlsx"],
+    accept_multiple_files=True,
 )
 
-if uploaded_file is not None:
+if uploaded_files:
+    file_names = [f.name for f in uploaded_files]
+    chosen_name = st.sidebar.selectbox("Select dataset to analyse", file_names)
+    uploaded_file = uploaded_files[file_names.index(chosen_name)]
     try:
         if uploaded_file.name.lower().endswith(".csv"):
             df_raw = pd.read_csv(uploaded_file)
         else:
             df_raw = pd.read_excel(uploaded_file)
 
-        st.success("Dataset uploaded successfully!")
+        st.success(f"Dataset loaded: {uploaded_file.name}")
 
     except Exception as e:
         st.error(f"Error loading dataset: {e}")
         st.stop()
 
 else:
+    uploaded_file = None
     data_folder = os.path.join(os.getcwd(), "Data")
     csv_files = sorted(glob.glob(os.path.join(data_folder, "*.csv")))
 
@@ -70,9 +75,10 @@ else:
         st.error("Please upload a CSV or Excel dataset.")
         st.stop()
 
-    df_raw = pd.read_csv(csv_files[0])
-    st.info("Default dataset loaded successfully!")
-
+    default_names = [os.path.basename(p) for p in csv_files]
+    chosen_default = st.sidebar.selectbox("Sample dataset", default_names)
+    df_raw = pd.read_csv(csv_files[default_names.index(chosen_default)])
+    st.info(f"Default dataset loaded: {chosen_default}")
 if df_raw.empty:
     st.error("The dataset is empty. Please upload a file with data.")
     st.stop()
