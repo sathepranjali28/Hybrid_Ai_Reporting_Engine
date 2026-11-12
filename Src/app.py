@@ -84,7 +84,7 @@ quantity_col = find_col(all_cols, ["quantity", "qty"])
 # =============================================================
 # Column mapping (the user can fix a wrong guess)
 # =============================================================
-with st.expander("🧭 Column mapping: change it if the app picked the wrong column"):
+with st.sidebar.expander("🧭 Column mapping: change it if the app picked the wrong column"):
     st.caption(
         "The app guesses which column is which. If your file uses other "
         "names (for example 'Bill Date' or 'Amount'), choose them here."
